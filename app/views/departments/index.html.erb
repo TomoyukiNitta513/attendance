@@ -1,0 +1,20 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  <h1>部門一覧</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>部門名</th>
+        <th>削除フラグ</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @departments.each do |department| %>
+        <tr>
+          <td><%= link_to department.name, department %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
