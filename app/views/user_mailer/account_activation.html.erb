@@ -4,8 +4,8 @@
 
 <p>
   勤怠管理アプリ（仮）へようこそ！
-  下のリンクをクリックしてアカウントを有効化して下さい
+  下のリンクをクリックしてアカウントを有効化して下さい。
 </p>
 
-<%= link_to "有効化", edit_account_activation_url(@user.activation_token,
+<%= link_to "有効化する", edit_account_activation_url(@user.activation_token,
                         email: @user.email) %>
