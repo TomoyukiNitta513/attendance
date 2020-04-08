@@ -15,7 +15,6 @@ class DepartmentsController < ApplicationController
 
   def create
     @department = Department.new(department_params)
-
     if @department.save
       redirect_to @department, notice: '部門を登録しました'
     else

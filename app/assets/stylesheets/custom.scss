@@ -140,3 +140,17 @@ input {
     border-bottom: 1px solid $gray-lighter;
   }
 }
+
+/* シフトの登録 */
+
+.date-select {
+  display: inline-block;
+  width: auto;
+}
+
+/* カレンダー */
+
+.calendar-heading {
+  font-size: 1.5em;
+  text-align: center;
+}

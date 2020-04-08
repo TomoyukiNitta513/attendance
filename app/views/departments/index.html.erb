@@ -13,6 +13,7 @@
       <% @departments.each do |department| %>
         <tr>
           <td><%= link_to department.name, department %></td>
+          <td><%= link_to department.sakujo, department %></td>
         </tr>
       <% end %>
     </tbody>

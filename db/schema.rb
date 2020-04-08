@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_05_082702) do
+ActiveRecord::Schema.define(version: 2020_02_18_144158) do
+
+  create_table "attendance_managements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.date "attendance_date"
+    t.time "sch_attendance"
+    t.time "sch_leaving"
+    t.time "res_attendance"
+    t.time "res_break_in"
+    t.time "res_break_out"
+    t.time "res_leaving"
+    t.boolean "delete_flag", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_attendance_managements_on_user_id"
+  end
 
   create_table "departments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -32,7 +47,12 @@ ActiveRecord::Schema.define(version: 2020_02_05_082702) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "employee_code"
+    t.string "section"
+    t.boolean "resignation_flag", default: false
+    t.datetime "resignation_at_date"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "attendance_managements", "users"
 end
