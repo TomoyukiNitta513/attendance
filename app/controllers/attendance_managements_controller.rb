@@ -11,16 +11,26 @@ class AttendanceManagementsController < ApplicationController
 
   def new
     @attendance_management = AttendanceManagement.new
+    @attendance_management.attendance_date = params[:clicked_date]
+    respond_to do |format|
+      # format.html
+      format.js
+    end
   end
 
   def create
     @attendance_management = AttendanceManagement.new(attendance_management_params)
-    binding.pry
-    if @attendance_management.save
-      flash[:success] = "シフトを登録しました。"
-      redirect_to @attendance_management
-    else
-      render 'new'
+    # binding.pry
+    respond_to do |format|
+      if @attendance_management.save
+        format.html
+        format.js
+        flash[:success] = "シフトを登録しました。"
+        redirect_to @attendance_management
+      else
+        format.js
+        render 'new'
+      end
     end
   end
 

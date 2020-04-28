@@ -1,0 +1,41 @@
+<h1>シフトの登録</h1>
+<div>
+  <div>
+    <% today = Date.today %>
+    <table class="table table-bordered">
+      <caption><%= today.strftime('%Y年%m月') %></caption>
+      <tr>
+        <th>日</th>
+        <th>月</th>
+        <th>火</th>
+        <th>水</th>
+        <th>木</th>
+        <th>金</th>
+        <th>土</th>
+      </tr>
+      <tr>
+    <% month = today.strftime('%m') %>
+    <% d = today.at_beginning_of_month.at_beginning_of_week(:sunday) %>
+    <% 1.upto(5).each do |i| %>
+      <tr>
+        <% (d..d.end_of_week(:sunday)).each do |c| %>
+          <td>
+          <% if c.strftime('%m') == month %>
+            <!-- <button id="btnact" type="button" class="btn btn-outline-secondary">
+              <%#= c.strftime('%d') %>
+            </button> -->
+            <!-- <span id=<%#= "action#{c.strftime('%d')}" %></span> -->
+          <% end %>
+            <%= link_to new_attendance_management_path(clicked_date: c),
+                                                          :remote => true do %>
+              <%= (c.strftime('%m') == month)? c.strftime('%d'): "" %>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+      <% d = d + 1.week %>
+    <% end %>
+    </table>
+  </div>
+</div>
+<div id="input-form"></div>
