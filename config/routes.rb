@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ranks
   root 'static_pages#home'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'

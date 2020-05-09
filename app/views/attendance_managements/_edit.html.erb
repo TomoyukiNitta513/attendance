@@ -1,0 +1,16 @@
+<%= form_for @attendance_management do |f| %>
+<div class="form-group">
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <%= f.label :attendance_date, "出勤日" %>
+  <%= f.date_field :attendance_date,
+        value: @attendance_management.attendance_date, class: 'form-control' %>
+
+  <%= f.label :sch_attendance, "出勤時間" %>
+  <%= f.time_field :sch_attendance, class: 'form-control' %>
+
+  <%= f.label :sch_leaving, "退勤時間" %>
+  <%= f.time_field :sch_leaving, class: 'form-control' %>
+
+  <%= f.submit '編集', class: 'btn btn-primary' %>
+<% end %>
