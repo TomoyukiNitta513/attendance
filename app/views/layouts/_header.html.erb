@@ -14,6 +14,7 @@
             <li><%= link_to "プロフィール", current_user %></li>
             <li><%= link_to "従業員編集", edit_user_path(current_user) %></li>
             <li><%= link_to "シフト登録", attendance_managements_path %></li>
+            <li><%= link_to "シフト編集", shift_attendance_managements_path %></li>
             <li class="divider"></li>
             <li>
               <%= link_to "ログアウト", logout_path, method: :delete %>

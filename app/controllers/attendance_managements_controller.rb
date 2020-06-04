@@ -1,12 +1,13 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
-  before_action :set_attendance_management, only: [:show, :edit, :update, :destroy]
+  before_action :set_attendance_management, only: [:edit, :update, :destroy]
 
   def index
-    @attendance_managements = AttendanceManagement.all
+    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
   end
 
   def show
+    @attendance_management = AttendanceManagement.where(id: params[:user_id])
   end
 
   def new
@@ -19,7 +20,7 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def create
-    @attendance_managements = AttendanceManagement.all
+    # @attendance_managements = AttendanceManagement.all
     @attendance_management = AttendanceManagement.new(attendance_management_params)
     # binding.pry
     respond_to do |format|
@@ -27,7 +28,7 @@ class AttendanceManagementsController < ApplicationController
         format.html
         format.js
         flash.now[:success] = "シフトを登録しました。"
-        redirect_to attendance_managements_path
+        redirect_to attendance_managements_path(current_user.id)
       else
         format.js
         render 'new'
@@ -52,6 +53,16 @@ class AttendanceManagementsController < ApplicationController
     end
   end
 
+  def shift
+    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+  end
+
+  def approval_all
+    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+    @attendance_managements.update_all(approval_flag: true)
+    redirect_to shift_attendance_managements_path
+  end
+
   def destroy
     @attendance_management.destroy
     flash.now[:danger] = "シフトを削除しました。"
@@ -67,6 +78,7 @@ class AttendanceManagementsController < ApplicationController
     def attendance_management_params
       params.require( :attendance_management ).permit(
         :sch_attendance, :sch_leaving, :res_attendance, :res_break_in,
-        :res_break_out, :res_leaving, :user_id, :delete_flag, :attendance_date )
+        :res_break_out, :res_leaving, :user_id, :delete_flag, :attendance_date,
+        :approval_flag)
     end
 end

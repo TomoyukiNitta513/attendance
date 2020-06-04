@@ -1,0 +1,16 @@
+<%= @attendance_management.each do |a| %>
+<table>
+  <thead>
+    <tr>
+      <th>出勤日</th><th>出勤時間</th><th>退勤時間</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= a.attendance_date %></td>
+      <td><%= a.sch_attendance %></td>
+      <td><%= a.sch_leaving %></td>
+    </tr>
+  </tbody>
+</table>
+<% end %>

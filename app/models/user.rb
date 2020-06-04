@@ -69,6 +69,15 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
 
+  # ユーザーを検索する
+  def self.search(search)
+    if search
+      self.where(['name LIKE ?', "%#{search}%"])
+    else
+      self.all
+    end
+  end
+
   private
 
   # メールアドレスをすべて小文字にする

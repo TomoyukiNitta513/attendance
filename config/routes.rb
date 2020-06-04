@@ -12,9 +12,12 @@ Rails.application.routes.draw do
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
-  resources :attendance_managements
-
-  # post 'attendance_managements/new', to: 'attendance_managements#new'
+  resources :attendance_managements do
+    collection do
+      get :shift
+      patch :approval_all
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
