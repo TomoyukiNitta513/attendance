@@ -1,13 +1,12 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
-  before_action :set_attendance_management, only: [:edit, :update, :destroy]
+  before_action :set_attendance_management, only: [:show, :edit, :update, :destroy]
 
   def index
     @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
   end
 
   def show
-    @attendance_management = AttendanceManagement.where(id: params[:user_id])
   end
 
   def new
@@ -54,18 +53,35 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def shift
-    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+    @s_month = params[:s_month]
+    @s_date = Date.today.next_month
+    unless @s_month.blank?
+      if @s_month == 'previous'
+        @s_date = @s_date.last_month
+      else
+        @s_date = @s_date.next_month
+      end
+    end
+    binding.pry
+    @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
   end
 
   def approval_all
-    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
-    @attendance_managements.update_all(approval_flag: true)
+    @approval_flag_all = params[:approval_flag_all]
+    if @approval_flag_all == true
+      @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+      @attendance_managements.update_all(approval_flag: true)
+      binding.pry
+      flash.now[:success] = "シフトを確定しました。"
+    else
+      flash.now[:danger] = "シフトを確定に失敗しました。"
+    end
     redirect_to shift_attendance_managements_path
   end
 
   def destroy
     @attendance_management.destroy
-    flash.now[:danger] = "シフトを削除しました。"
+    flash.now[:success] = "シフトを削除しました。"
     redirect_to attendance_managements_path
   end
 
@@ -78,7 +94,6 @@ class AttendanceManagementsController < ApplicationController
     def attendance_management_params
       params.require( :attendance_management ).permit(
         :sch_attendance, :sch_leaving, :res_attendance, :res_break_in,
-        :res_break_out, :res_leaving, :user_id, :delete_flag, :attendance_date,
-        :approval_flag)
+        :res_break_out, :res_leaving, :user_id, :attendance_date)
     end
 end

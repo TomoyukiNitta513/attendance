@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   resources :attendance_managements do
     collection do
       get :shift
-      patch :approval_all
+      post :shift
+      post :approval_all
     end
   end
 

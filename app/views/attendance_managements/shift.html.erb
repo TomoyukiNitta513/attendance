@@ -7,6 +7,14 @@
   </p>
   <%# end %> -->
   <h3><%= current_user.name %></h3>
+  <div>
+    <span>
+      <%= link_to "前月", shift_attendance_managements_path(s_month: 'previous'), method: :post %>
+    </span> |
+    <span>
+      <%= link_to "翌月", shift_attendance_managements_path(s_month: 'next'), method: :post %>
+    </span>
+  </div>
   <div class="input-form">
     <table class="table table-bordered">
       <thead>
@@ -15,12 +23,13 @@
         </tr>
       </thead>
       <tbody>
-        <%= @attendance_managements.each do |a| %>
+        <% @attendance_managements.each do |a| %>
         <tr>
           <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
           <td><%= a.sch_attendance.strftime('%H:%M') %></td>
           <td><%= a.sch_leaving.strftime('%H:%M') %></td>
           <td>
+            <!-- <%#= link_to "確定", approval_all_attendance_managements_path(approval_flag: true), method: :post %> -->
             <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
             <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
           </td>
@@ -29,9 +38,7 @@
       </tbody>
     </table>
     <div>
-      <%= form_for(approval_all_attendance_managements_path, {method: :patch}) do |f| %>
-        <%= f.submit "シフトを確定する" %>
-      <% end %>
+      <%= button_to "全てのシフトを確定する", approval_all_attendance_managements_path(approval_flag_all: true), method: :post %>
     </div>
   </div>
 </div>
