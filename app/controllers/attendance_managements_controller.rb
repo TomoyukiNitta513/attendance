@@ -4,6 +4,9 @@ class AttendanceManagementsController < ApplicationController
 
   def index
     @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+    # myhash = Hash.new
+    # @attendance_managements.each do |a|
+    #   myhash[a.attendance_date] =
   end
 
   def show
@@ -53,30 +56,21 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def shift
-    @s_month = params[:s_month]
-    @s_date = Date.today.next_month
-    unless @s_month.blank?
-      if @s_month == 'previous'
-        @s_date = @s_date.last_month
-      else
-        @s_date = @s_date.next_month
-      end
-    end
-    binding.pry
-    @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
+    select_month
   end
 
   def approval_all
     @approval_flag_all = params[:approval_flag_all]
-    if @approval_flag_all == true
-      @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
+    # binding.pry
+    if @approval_flag_all == "true"
+      select_month
       @attendance_managements.update_all(approval_flag: true)
-      binding.pry
-      flash.now[:success] = "シフトを確定しました。"
+      flash[:success] = "シフトを確定しました。"
+      redirect_to shift_attendance_managements_path
     else
-      flash.now[:danger] = "シフトを確定に失敗しました。"
+      flash[:danger] = "シフトの確定に失敗しました。"
+      redirect_to shift_attendance_managements_path
     end
-    redirect_to shift_attendance_managements_path
   end
 
   def destroy
@@ -95,5 +89,18 @@ class AttendanceManagementsController < ApplicationController
       params.require( :attendance_management ).permit(
         :sch_attendance, :sch_leaving, :res_attendance, :res_break_in,
         :res_break_out, :res_leaving, :user_id, :attendance_date)
+    end
+
+    def select_month
+      @s_month = params[:s_month]
+      @s_date = Date.today.next_month
+      unless @s_month.blank?
+        if @s_month == 'previous'
+          @s_date = @s_date.last_month
+        elsif @s_month == 'next'
+          @s_date = @s_date.next_month
+        end
+      end
+      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
     end
 end

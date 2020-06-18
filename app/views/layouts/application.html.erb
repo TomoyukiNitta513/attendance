@@ -16,12 +16,21 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
+    <!-- <%# flash.each do |key, value| %>
+      <div class="alert alert-<%#= key %>" role="alert"><%#= value %></div>
+    <%# end %> -->
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
-      <%= yield %>
     </div>
+      <%= yield %>
+    <script>
+      $(function(){
+        $(".alert").fadeOut(5000);
+      });
+    </script>
+    <%= debug(params) if Rails.env.development? %>
   </body>
 </html>

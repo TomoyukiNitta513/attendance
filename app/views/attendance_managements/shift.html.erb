@@ -29,16 +29,17 @@
           <td><%= a.sch_attendance.strftime('%H:%M') %></td>
           <td><%= a.sch_leaving.strftime('%H:%M') %></td>
           <td>
-            <!-- <%#= link_to "確定", approval_all_attendance_managements_path(approval_flag: true), method: :post %> -->
-            <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
-            <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
+            <% unless a.approval_flag == true %>
+              <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
+              <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
+            <% end %>
           </td>
         </tr>
         <% end %>
       </tbody>
     </table>
     <div>
-      <%= button_to "全てのシフトを確定する", approval_all_attendance_managements_path(approval_flag_all: true), method: :post %>
+      <%= button_to "シフトを確定する", approval_all_attendance_managements_path(approval_flag_all: true), method: :post %>
     </div>
   </div>
 </div>
