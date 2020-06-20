@@ -3,10 +3,13 @@ class AttendanceManagementsController < ApplicationController
   before_action :set_attendance_management, only: [:show, :edit, :update, :destroy]
 
   def index
-    @attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month)
-    # myhash = Hash.new
-    # @attendance_managements.each do |a|
-    #   myhash[a.attendance_date] =
+    attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month).order(:attendance_date)
+    # binding.pry
+    @h = Hash.new { |h, k| h[k] = [] }
+    attendance_managements.each do |a|
+      @h[a.attendance_date].push(a.id, a.sch_attendance, a.sch_leaving)
+    end
+    # binding.pry
   end
 
   def show
