@@ -1,2 +1,23 @@
-<%= @user.name %>, <%= @user.email %>
-<%= @user.created_at %>, <%= @user.updated_at %>
+<div class="container">
+  <h3>ユーザー情報</h3>
+  <div>
+    <table class="table">
+      <tr>
+        <th>従業員氏名</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th>メールアドレス</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <tr>
+        <th>従業員コード</th>
+        <td><%= @user.employee_code %>
+      </tr>
+      <tr>
+        <th>部門</th>
+        <td><%= @user.section %>
+      </tr>
+    </table>
+  </div>
+</div>

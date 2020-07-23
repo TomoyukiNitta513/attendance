@@ -1,11 +1,4 @@
 <div class="container">
-  <!-- <p>勤怠日付</p>
-  <%#= form_tag(shift_attendance_managements_path, method: :get) do %>
-  <p>
-    <%#= month_field params[:search] %>
-    <%#= submit_tag "検索", :attendance_date => nil %>
-  </p>
-  <%# end %> -->
   <h3><%= current_user.name %></h3>
   <div>
     <span>
@@ -28,18 +21,23 @@
           <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
           <td><%= a.sch_attendance.strftime('%H:%M') %></td>
           <td><%= a.sch_leaving.strftime('%H:%M') %></td>
-          <td>
-            <% unless a.approval_flag == true %>
-              <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
-              <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
+            <% @a_flag = a.approval_flag %>
+            <% unless @a_flag == true %>
+              <td>
+                <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
+                <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
+              </td>
+            <% else %>
+              <td>&nbsp;</td>
             <% end %>
-          </td>
         </tr>
         <% end %>
       </tbody>
     </table>
     <div>
-      <%= button_to "シフトを確定する", approval_all_attendance_managements_path(approval_flag_all: true), method: :post %>
+      <% unless @a_flag == true %>
+        <%= button_to "シフトを確定する", approval_all_attendance_managements_path(approval_flag_all: true), method: :post %>
+      <% end %>
     </div>
   </div>
 </div>

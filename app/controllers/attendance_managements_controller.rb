@@ -1,15 +1,17 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
-  before_action :set_attendance_management, only: [:show, :edit, :update, :destroy]
+  before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update, :destroy]
+  before_action :admin_user, only: [:shift, :approval_all]
 
   def index
-    attendance_managements = AttendanceManagement.where(attendance_date: Date.today.next_month.beginning_of_month..Date.today.next_month.end_of_month).order(:attendance_date)
+    @date = Date.today.next_month
+    attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month).where(user_id: current_user.id).order(:attendance_date)
     # binding.pry
     @h = Hash.new { |h, k| h[k] = [] }
     attendance_managements.each do |a|
-      @h[a.attendance_date].push(a.id, a.sch_attendance, a.sch_leaving)
+      @h[a.attendance_date].push(a.id, a.sch_attendance, a.sch_leaving, a.user_id)
     end
-    # binding.pry
+    binding.pry
   end
 
   def show
@@ -25,20 +27,19 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def create
-    # @attendance_managements = AttendanceManagement.all
     @attendance_management = AttendanceManagement.new(attendance_management_params)
+    @attendance_management.user_id = current_user.id
     # binding.pry
-    respond_to do |format|
+    # respond_to do |format|
       if @attendance_management.save
-        format.html
-        format.js
+        # format.html
+        # format.js
         flash.now[:success] = "シフトを登録しました。"
         redirect_to attendance_managements_path(current_user.id)
       else
-        format.js
-        render 'new'
+        redirect_back(fallback_location: attendance_managements_path)
       end
-    end
+    # end
   end
 
   def edit
@@ -46,6 +47,9 @@ class AttendanceManagementsController < ApplicationController
       format.html
       format.js
     end
+  end
+
+  def edit_2
   end
 
   def update
@@ -64,9 +68,10 @@ class AttendanceManagementsController < ApplicationController
 
   def approval_all
     @approval_flag_all = params[:approval_flag_all]
+    @date = Date.today.next_month
     # binding.pry
     if @approval_flag_all == "true"
-      select_month
+      @attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month)
       @attendance_managements.update_all(approval_flag: true)
       flash[:success] = "シフトを確定しました。"
       redirect_to shift_attendance_managements_path
@@ -105,5 +110,9 @@ class AttendanceManagementsController < ApplicationController
         end
       end
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
+    end
+
+    def admin_user
+      redirect_to(root_url) unless current_user.admin?
     end
 end

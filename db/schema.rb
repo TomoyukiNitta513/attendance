@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_20_125836) do
+ActiveRecord::Schema.define(version: 2020_06_25_084903) do
 
   create_table "attendance_managements", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2020_06_20_125836) do
     t.boolean "resignation_flag", default: false
     t.datetime "resignation_at_date"
     t.integer "department_id"
+    t.integer "rank_id"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
