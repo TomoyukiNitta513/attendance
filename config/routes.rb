@@ -17,7 +17,9 @@ Rails.application.routes.draw do
       get :shift
       post :shift
       post :approval_all
-      post :edit_2
+    end
+    member do
+      get :edit_2
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

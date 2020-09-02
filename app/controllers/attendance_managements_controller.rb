@@ -11,7 +11,7 @@ class AttendanceManagementsController < ApplicationController
     attendance_managements.each do |a|
       @h[a.attendance_date].push(a.id, a.sch_attendance, a.sch_leaving, a.user_id)
     end
-    binding.pry
+    # binding.pry
   end
 
   def show
@@ -50,6 +50,9 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def edit_2
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
@@ -63,7 +66,23 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def shift
-    select_month
+    @s_month = params[:s_month]
+    @s_date = Date.today.next_month
+    @name = params[:name]
+    # binding.pry
+    unless @s_month.blank?
+      if @s_month == 'previous'
+        @s_date = @s_date.last_month
+      elsif @s_month == 'next'
+        @s_date = @s_date.next_month
+      end
+    end
+    unless @name.blank?
+      @user = User.where(name: @name).first
+      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
+    else
+      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
+    end
   end
 
   def approval_all
@@ -97,19 +116,6 @@ class AttendanceManagementsController < ApplicationController
       params.require( :attendance_management ).permit(
         :sch_attendance, :sch_leaving, :res_attendance, :res_break_in,
         :res_break_out, :res_leaving, :user_id, :attendance_date)
-    end
-
-    def select_month
-      @s_month = params[:s_month]
-      @s_date = Date.today.next_month
-      unless @s_month.blank?
-        if @s_month == 'previous'
-          @s_date = @s_date.last_month
-        elsif @s_month == 'next'
-          @s_date = @s_date.next_month
-        end
-      end
-      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
     end
 
     def admin_user

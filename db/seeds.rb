@@ -37,12 +37,11 @@ end
 
 20.times do |n|
   id = "#{n+1}"
-  from = Date.parse("2020/08/01")
-  to = Date.parse("2020/08/31")
-  date = Random.rand(from..to)
+  d = Date.today.next_month
   AttendanceManagement.create!(
     user_id: id,
-    attendance_date: date,
+    attendance_date: d.
     sch_attendance: "2020/01/01/08:00:00"
     sch_leaving: "2020/01/01/16:00:00"
   )
+end
