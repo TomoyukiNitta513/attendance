@@ -1,7 +1,7 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
   before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update, :destroy]
-  before_action :admin_user, only: [:shift, :approval_all]
+  before_action :admin_user, only: [:shift, :approval_all, :result]
 
   def index
     @date = Date.today.next_month
@@ -97,6 +97,26 @@ class AttendanceManagementsController < ApplicationController
     else
       flash[:danger] = "シフトの確定に失敗しました。"
       redirect_to shift_attendance_managements_path
+    end
+  end
+
+  def result
+    @s_month = params[:s_month]
+    @s_date = Date.today
+    @name = params[:name]
+    # binding.pry
+    unless @s_month.blank?
+      if @s_month == 'previous'
+        @s_date = @s_date.last_month
+      elsif @s_month == 'next'
+        @s_date = @s_date.next_month
+      end
+    end
+    unless @name.blank?
+      @user = User.where(name: @name).first
+      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
+    else
+      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
     end
   end
 

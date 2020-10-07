@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update]
-  before_action :admin_user, only: :destroy
+  before_action :admin_user, only: [:index, :edit, :update, :destroy]
 
   def index
     @users = User.where(activated: true).paginate(page: params[:page]).search(params[:search])
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                    :password_confirmation)
+                    :password_confirmation, :admin, :employee_code, :payment)
     end
 
     # beforeアクション

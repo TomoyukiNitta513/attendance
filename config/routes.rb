@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       get :shift
       post :shift
       post :approval_all
+      get :result
+      post :result
     end
     member do
       get :edit_2

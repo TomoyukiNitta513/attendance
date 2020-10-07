@@ -31,17 +31,45 @@ User.create!(name: "Example User",
     password_confirmation: password,
     department_id: 1,
     rank_id: 1,
+    payment: "1050",
     activated: true,
     activated_at: Time.zone.now)
 end
 
 20.times do |n|
   id = "#{n+1}"
-  d = Date.today.next_month
-  AttendanceManagement.create!(
-    user_id: id,
-    attendance_date: d.
-    sch_attendance: "2020/01/01/08:00:00"
-    sch_leaving: "2020/01/01/16:00:00"
-  )
+  a_date = Date.today.beginning_of_month
+  4.times do
+    5.times do
+    AttendanceManagement.create!(
+      user_id: id,
+      attendance_date: a_date,
+      sch_attendance: Time.parse("2000/01/01 08:00"),
+      sch_leaving: Time.parse("2000/01/01 16:00"),
+      res_attendance: Time.parse("2000/01/01 08:01"),
+      res_break_in: Time.parse("2000/01/01 12:00"),
+      res_break_out: Time.parse("2000/01/01 13:00"),
+      res_leaving: Time.parse("2000/01/01 16:01")
+    )
+    a_date += 1
+    end
+    a_date += 2
+  end
+end
+
+20.times do |n|
+  id = "#{n+1}"
+  a_date = Date.today.next_month.beginning_of_month
+  4.times do
+    5.times do
+    AttendanceManagement.create!(
+      user_id: id,
+      attendance_date: a_date,
+      sch_attendance: Time.parse("2000/01/01 08:00"),
+      sch_leaving: Time.parse("2000/01/01 16:00")
+    )
+    a_date += 1
+    end
+    a_date += 2
+  end
 end

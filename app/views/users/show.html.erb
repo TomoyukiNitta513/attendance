@@ -12,15 +12,26 @@
       </tr>
       <tr>
         <th>従業員コード</th>
-        <td><%= @user.employee_code %>
+        <td><%= @user.employee_code %></td>
       </tr>
       <tr>
         <th>部門</th>
-        <td><%= @user.section %>
+        <td><%= @user.section %></td>
       </tr>
+      <% if current_user.admin? %>
+        <tr>
+          <th>時給</th>
+          <td><%= @user.payment %>円</td>
+        </tr>
+        <tr>
+          <th>管理者権限</th>
+          <td><%= @user.admin %></td>
+        </tr>
     </table>
   </div>
   <div class="input-form">
+    <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
+      <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
     <table class="table table-bordered">
       <thead>

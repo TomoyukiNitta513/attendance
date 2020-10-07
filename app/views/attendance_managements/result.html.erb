@@ -1,0 +1,38 @@
+<div class="container">
+  <h3>勤怠実績一覧</h3>
+  <div>
+    <span>
+      <%= link_to "前月", result_attendance_managements_path(s_month: 'previous'), method: :post %>
+    </span> |
+    <span>
+      <%= link_to "翌月", result_attendance_managements_path(s_month: 'next'), method: :post %>
+    </span>
+    <span>
+      <%= form_with url: result_attendance_managements_path, method: :post, local: true do |f| %>
+        <%= f.label :name, '氏名で検索する' %>
+        <%= f.text_field :name %>
+        <%= f.submit "検索", class: "btn btn-secondary" %>
+      <% end %>
+    </span>
+  </div>
+  <div class="input-form">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>休憩入</th><th>休憩戻</th><th>退勤時間</th><th>労働時間</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @attendance_managements.each do |a| %>
+        <tr>
+          <td><%= a.user.name %></td>
+          <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
+          <td><%= a.res_attendance.strftime('%H:%M') %></td>
+          <td><%= a.res_break_in.strftime('%H:%M') %></td>
+          <td><%= a.res_break_out.strftime('%H:%M') %></td>
+          <td><%= a.res_leaving.strftime('%H:%M') %></td>
+          <td><%= a.res_leaving - a.res_attendance %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
