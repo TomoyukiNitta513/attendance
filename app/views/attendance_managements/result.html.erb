@@ -11,6 +11,9 @@
       <%= form_with url: result_attendance_managements_path, method: :post, local: true do |f| %>
         <%= f.label :name, '氏名で検索する' %>
         <%= f.text_field :name %>
+
+        <!-- <%#= f.select :s_month, [['先月', 1], ['先々月', 2], ['三ヶ月前', 3]] %> -->
+
         <%= f.submit "検索", class: "btn btn-secondary" %>
       <% end %>
     </span>
@@ -19,9 +22,10 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>休憩入</th><th>休憩戻</th><th>退勤時間</th><th>労働時間</th>
+          <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>休憩入</th><th>休憩戻</th><th>退勤時間</th><th>労働時間(時間)</th>
         </tr>
       </thead>
+      <% total = 0 %>
       <tbody>
         <% @attendance_managements.each do |a| %>
         <tr>
@@ -31,8 +35,13 @@
           <td><%= a.res_break_in.strftime('%H:%M') %></td>
           <td><%= a.res_break_out.strftime('%H:%M') %></td>
           <td><%= a.res_leaving.strftime('%H:%M') %></td>
-          <td><%= a.res_leaving - a.res_attendance %></td>
+          <td><%= (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60 %></td>
+          <% total += (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60 %>
         </tr>
         <% end %>
+        <tr>
+          <td colspan="6">合計</td>
+          <td><%= total %></td>
+        </tr>
       </tbody>
     </table>

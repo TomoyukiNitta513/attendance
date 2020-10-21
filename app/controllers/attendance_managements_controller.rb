@@ -1,17 +1,15 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
   before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update, :destroy]
-  before_action :admin_user, only: [:shift, :approval_all, :result]
+  before_action :admin_user, only: [:shift, :approval_all, :result, :destroy]
 
   def index
     @date = Date.today.next_month
     attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month).where(user_id: current_user.id).order(:attendance_date)
-    # binding.pry
     @h = Hash.new { |h, k| h[k] = [] }
     attendance_managements.each do |a|
       @h[a.attendance_date].push(a.id, a.sch_attendance, a.sch_leaving, a.user_id)
     end
-    # binding.pry
   end
 
   def show
@@ -29,17 +27,12 @@ class AttendanceManagementsController < ApplicationController
   def create
     @attendance_management = AttendanceManagement.new(attendance_management_params)
     @attendance_management.user_id = current_user.id
-    # binding.pry
-    # respond_to do |format|
-      if @attendance_management.save
-        # format.html
-        # format.js
-        flash.now[:success] = "シフトを登録しました。"
-        redirect_to attendance_managements_path(current_user.id)
-      else
-        redirect_back(fallback_location: attendance_managements_path)
-      end
-    # end
+    if @attendance_management.save
+      flash.now[:success] = "シフトを登録しました。"
+      redirect_to attendance_managements_path(current_user.id)
+    else
+      redirect_back(fallback_location: attendance_managements_path)
+    end
   end
 
   def edit
@@ -66,17 +59,8 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def shift
-    @s_month = params[:s_month]
     @s_date = Date.today.next_month
     @name = params[:name]
-    # binding.pry
-    unless @s_month.blank?
-      if @s_month == 'previous'
-        @s_date = @s_date.last_month
-      elsif @s_month == 'next'
-        @s_date = @s_date.next_month
-      end
-    end
     unless @name.blank?
       @user = User.where(name: @name).first
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
@@ -102,9 +86,9 @@ class AttendanceManagementsController < ApplicationController
 
   def result
     @s_month = params[:s_month]
+    # binding.pry
     @s_date = Date.today
     @name = params[:name]
-    # binding.pry
     unless @s_month.blank?
       if @s_month == 'previous'
         @s_date = @s_date.last_month
@@ -112,6 +96,14 @@ class AttendanceManagementsController < ApplicationController
         @s_date = @s_date.next_month
       end
     end
+    # if @s_month == '1'
+    #   @s_date = @s_date.prev_month(1)
+    # elsif @s_month == '2'
+    #   @s_date = @s_date.prev_month(2)
+    # elsif @s_month == '3'
+    #   @s_date = @s_date.prev_month(3)
+    # end
+
     unless @name.blank?
       @user = User.where(name: @name).first
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)

@@ -29,7 +29,7 @@
         </tr>
     </table>
   </div>
-  <div class="input-form">
+  <div id="register">
     <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
@@ -53,7 +53,11 @@
               </td>
             <% else %>
               <!-- <td>&nbsp;</td> -->
-              <td><%= link_to "勤怠登録", edit_2_attendance_management_path(a.id), :remote => true %></td>
+              <% if a.attendance_date == Date.today %>
+                <td><%= link_to "勤怠登録", edit_2_attendance_management_path(a.id), :remote => true %></td>
+              <% else %>
+                <td>&nbsp;</td>
+              <% end %>
             <% end %>
         </tr>
         <% end %>
