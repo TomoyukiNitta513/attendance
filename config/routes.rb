@@ -12,16 +12,29 @@ Rails.application.routes.draw do
   resources :ranks
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
+
   resources :attendance_managements do
-    collection do
-      get :shift
-      post :shift
-      post :approval_all
-      get :result
-      post :result
-    end
+    # collection do
+    #   get :shift
+    #   post :shift
+    #   post :approval_all
+    #   get :result
+    #   post :result
+    # end
     member do
       get :edit_2
+    end
+  end
+
+  namespace :admin do
+    resources :attendance_managements, only: [:destroy] do
+      collection do
+        get :shift
+        post :shift
+        post :approval_all
+        get :result
+        post :result
+      end
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

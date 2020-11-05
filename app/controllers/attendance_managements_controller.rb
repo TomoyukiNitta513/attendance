@@ -1,7 +1,7 @@
 class AttendanceManagementsController < ApplicationController
   before_action :logged_in?
-  before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update, :destroy]
-  before_action :admin_user, only: [:shift, :approval_all, :result, :destroy]
+  before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update]
+  # before_action :admin_user, only: [:shift, :approval_all, :result, :destroy]
 
   def index
     @date = Date.today.next_month
@@ -56,66 +56,6 @@ class AttendanceManagementsController < ApplicationController
       flash.now[:danger] = "シフトの編集が出来ませんでした。"
       redirect_to attendance_managements_path
     end
-  end
-
-  def shift
-    @s_date = Date.today.next_month
-    @name = params[:name]
-    unless @name.blank?
-      @user = User.where(name: @name).first
-      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
-    else
-      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
-    end
-  end
-
-  def approval_all
-    @approval_flag_all = params[:approval_flag_all]
-    @date = Date.today.next_month
-    # binding.pry
-    if @approval_flag_all == "true"
-      @attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month)
-      @attendance_managements.update_all(approval_flag: true)
-      flash[:success] = "シフトを確定しました。"
-      redirect_to shift_attendance_managements_path
-    else
-      flash[:danger] = "シフトの確定に失敗しました。"
-      redirect_to shift_attendance_managements_path
-    end
-  end
-
-  def result
-    @s_month = params[:s_month]
-    # binding.pry
-    @s_date = Date.today
-    @name = params[:name]
-    unless @s_month.blank?
-      if @s_month == 'previous'
-        @s_date = @s_date.last_month
-      elsif @s_month == 'next'
-        @s_date = @s_date.next_month
-      end
-    end
-    # if @s_month == '1'
-    #   @s_date = @s_date.prev_month(1)
-    # elsif @s_month == '2'
-    #   @s_date = @s_date.prev_month(2)
-    # elsif @s_month == '3'
-    #   @s_date = @s_date.prev_month(3)
-    # end
-
-    unless @name.blank?
-      @user = User.where(name: @name).first
-      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
-    else
-      @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
-    end
-  end
-
-  def destroy
-    @attendance_management.destroy
-    flash.now[:success] = "シフトを削除しました。"
-    redirect_to attendance_managements_path
   end
 
   private

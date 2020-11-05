@@ -2,13 +2,13 @@
   <h3>勤怠実績一覧</h3>
   <div>
     <span>
-      <%= link_to "前月", result_attendance_managements_path(s_month: 'previous'), method: :post %>
+      <%= link_to "前月", result_admin_attendance_managements_path(s_month: 'previous'), method: :post %>
     </span> |
     <span>
-      <%= link_to "翌月", result_attendance_managements_path(s_month: 'next'), method: :post %>
+      <%= link_to "翌月", result_admin_attendance_managements_path(s_month: 'next'), method: :post %>
     </span>
     <span>
-      <%= form_with url: result_attendance_managements_path, method: :post, local: true do |f| %>
+      <%= form_with url: result_admin_attendance_managements_path, method: :post, local: true do |f| %>
         <%= f.label :name, '氏名で検索する' %>
         <%= f.text_field :name %>
 
@@ -40,7 +40,7 @@
         </tr>
         <% end %>
         <tr>
-          <td colspan="6">合計</td>
+          <td class="result-total" colspan="6">労働時間合計</td>
           <td><%= total %></td>
         </tr>
       </tbody>

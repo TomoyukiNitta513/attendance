@@ -49,7 +49,8 @@ end
       res_attendance: Time.parse("2000/01/01 08:01"),
       res_break_in: Time.parse("2000/01/01 12:00"),
       res_break_out: Time.parse("2000/01/01 13:00"),
-      res_leaving: Time.parse("2000/01/01 16:01")
+      res_leaving: Time.parse("2000/01/01 16:01"),
+      approval_flag: true
     )
     a_date += 1
     end
