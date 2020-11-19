@@ -1,0 +1,78 @@
+<div>
+  <p>給与明細書</p>
+  <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
+</div>
+<div>
+  <table class="table table-bordered">
+    <tr>
+      <th class="details-title">部門</th><th class="details-title">従業員コード</th><th class="details-title">氏名</th>
+    </tr>
+    <tr>
+      <td class="text-center"><%= @attendance_management.first.user.section %></td>
+      <td class="text-center"><%= @attendance_management.first.user.employee_code %></td>
+      <td class="text-center"><%= @attendance_management.first.user.name %></td>
+    </tr>
+  </table>
+</div>
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2" class="text-center">勤怠</th><th>出勤日数</th><th>勤務時間</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2">支給</th><th>基本給</th><th>特別手当</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="4">控除</th><th>所得税</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>差引支給額</th>
+      </tr>
+      <tr>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

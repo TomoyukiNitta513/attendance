@@ -8,19 +8,14 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get 'pdfs/show'
+
   resources :users
   resources :ranks
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :attendance_managements do
-    # collection do
-    #   get :shift
-    #   post :shift
-    #   post :approval_all
-    #   get :result
-    #   post :result
-    # end
     member do
       get :edit_2
     end
@@ -34,6 +29,9 @@ Rails.application.routes.draw do
         post :approval_all
         get :result
         post :result
+      end
+      member do
+        get :details
       end
     end
   end

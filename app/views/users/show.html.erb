@@ -31,6 +31,7 @@
   </div>
   <div id="register">
     <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
+    <p><%= link_to "給与明細を表示する", details_admin_attendance_management_path(@user.id) %><p>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
     <table class="table table-bordered">

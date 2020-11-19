@@ -8,7 +8,7 @@
 Department.create!(
   name: "department1")
 
-Rank .create!(
+Rank.create!(
   rank: "1")
 
 User.create!(name: "Example User",
@@ -31,7 +31,9 @@ User.create!(name: "Example User",
     password_confirmation: password,
     department_id: 1,
     rank_id: 1,
-    payment: "1050",
+    employee_code: "0#{n+1}",
+    section: "ドトール",
+    payment: 1050,
     activated: true,
     activated_at: Time.zone.now)
 end

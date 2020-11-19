@@ -40,13 +40,17 @@ class Admin::AttendanceManagementsController < ApplicationController
         @s_date = @s_date.next_month
       end
     end
-
     unless @name.blank?
       @user = User.where(name: @name).first
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
     else
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
     end
+  end
+
+  def details
+    @user = User.find(params[:id])
+    @attendance_management = @user.attendance_managements.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month)
   end
 
   def destroy
