@@ -1,5 +1,5 @@
 pdf.font "#{Rails.root}/vendor/font_ttf/ipaexg.ttf"
-render :partial => 'details.pdf.prawn', :locals => { :p_pdf => pdf }
+render :partial => 'show.pdf.prawn', :locals => { :p_pdf => pdf }
 pdf.line_width = 0.1
 width = 70
 height = 13

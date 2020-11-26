@@ -31,7 +31,7 @@
   </div>
   <div id="att_regi">
     <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
-    <p><%= link_to "給与明細を表示する", details_admin_attendance_management_path(@user.id) %><p>
+    <p><%= link_to "給与明細を表示する", admin_attendance_management_path(@user.id) %><p>
     <p><%= link_to "給与明細の詳細を登録する", new_admin_detail_path(did: @user.id) %><p>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>

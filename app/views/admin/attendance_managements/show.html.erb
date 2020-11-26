@@ -1,4 +1,4 @@
-<%= link_to "#{@user.name}:PDF表示", details_admin_attendance_management_path(format: 'pdf') %>
+<%= link_to "#{@user.name}:PDF表示", admin_attendance_management_path(format: 'pdf') %>
 <div>
   <p>給与明細書</p>
   <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
@@ -79,4 +79,4 @@
     </tbody>
   </table>
 </div>
-<%= link_to "#{@user.name}:PDF表示", details_admin_attendance_management_path(format: 'pdf') %>
+<%= link_to "#{@user.name}:PDF表示", admin_detail_path(format: 'pdf') %>

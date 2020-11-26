@@ -22,16 +22,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :attendance_managements, only: [:destroy] do
+    resources :attendance_managements, only: [:index, :show, :update, :destroy] do
       collection do
         get :shift
-        post :shift
-        post :approval_all
-        get :result
-        post :result
-      end
-      member do
-        get :details
+        post :approve
       end
     end
     resources :details

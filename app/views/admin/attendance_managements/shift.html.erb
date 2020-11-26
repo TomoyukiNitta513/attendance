@@ -2,7 +2,7 @@
   <h3>シフトの編集</h3>
   <div>
     <span>
-      <%= form_with url: shift_admin_attendance_managements_path, method: :post, local: true do |f| %>
+      <%= form_with url: shift_admin_attendance_managements_path, method: :get, local: true do |f| %>
         <%= f.label :name, '氏名で検索する' %>
         <%= f.text_field :name %>
         <%= f.submit "検索", class: "btn btn-secondary" %>
@@ -38,7 +38,7 @@
     </table>
     <div>
       <% unless @a_flag == true %>
-        <%= button_to "シフトを確定する", approval_all_admin_attendance_managements_path(approval_flag_all: true), method: :post, class: "btn btn-primary" %>
+        <%= button_to "シフトを確定する", approve_admin_attendance_managements_path(approval_flag_all: true), method: :post, class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
