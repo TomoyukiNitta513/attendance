@@ -1,4 +1,5 @@
 class Admin::AttendanceManagementsController < ApplicationController
+  before_action :logged_in_user
   before_action :admin_user
   before_action :set_attendance_management, only: [:destroy]
 
@@ -51,6 +52,26 @@ class Admin::AttendanceManagementsController < ApplicationController
   def details
     @user = User.find(params[:id])
     @attendance_management = @user.attendance_managements.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month)
+    @total_time = 0
+    @total_pay = 0
+    @attendance_management.each do |a|
+      working = (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60
+      @total_time = @total_time.to_i + working.to_i
+      @total_pay = @total_pay.to_i + a.user.payment.to_i * working.to_i
+    end
+    respond_to do |format|
+      format.html
+      format.pdf { prawnto :prawn => {
+        :page_layout => :landscape, # 縦:portrait、 横:landscape
+        :page_size => 'A4',
+        :left_margin => 20,
+        :right_margin => 20,
+        :top_margin => 20,
+        :bottom_margin => 20
+        } ,
+      :inline => true
+      }
+    end
   end
 
   def destroy

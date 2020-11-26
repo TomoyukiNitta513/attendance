@@ -1,5 +1,6 @@
 class AttendanceManagementsController < ApplicationController
-  before_action :logged_in?
+  before_action :logged_in_user
+  before_action :correct_user, only: [:create, :update]
   before_action :set_attendance_management, only: [:show, :edit, :edit_2, :update]
   # before_action :admin_user, only: [:shift, :approval_all, :result, :destroy]
 
@@ -19,7 +20,6 @@ class AttendanceManagementsController < ApplicationController
     @attendance_management = AttendanceManagement.new
     @attendance_management.attendance_date = params[:clicked_date]
     respond_to do |format|
-      # format.html
       format.js
     end
   end
@@ -70,7 +70,7 @@ class AttendanceManagementsController < ApplicationController
         :res_break_out, :res_leaving, :user_id, :attendance_date)
     end
 
-    def admin_user
-      redirect_to(root_url) unless current_user.admin?
-    end
+    # def admin_user
+    #   redirect_to(root_url) unless current_user.admin?
+    # end
 end

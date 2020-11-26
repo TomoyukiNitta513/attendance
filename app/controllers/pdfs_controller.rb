@@ -1,7 +1,8 @@
+require "prawn"
 class PdfsController < ApplicationController
   def show
     respond_to do |format|
-     		format.html
+     		# format.html
      		format.pdf { prawnto :prawn => {
           :page_layout => :landscape, # 縦:portrait、 横:landscape
           :page_size => 'A4',

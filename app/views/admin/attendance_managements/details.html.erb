@@ -1,3 +1,4 @@
+<%= link_to "#{@user.name}:PDF表示", details_admin_attendance_management_path(format: 'pdf') %>
 <div>
   <p>給与明細書</p>
   <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
@@ -5,12 +6,13 @@
 <div>
   <table class="table table-bordered">
     <tr>
-      <th class="details-title">部門</th><th class="details-title">従業員コード</th><th class="details-title">氏名</th>
+      <th class="details-title">部門</th><th class="details-title">従業員コード</th><th class="text-center">時給</th><th class="details-title">氏名</th>
     </tr>
     <tr>
-      <td class="text-center"><%= @attendance_management.first.user.section %></td>
-      <td class="text-center"><%= @attendance_management.first.user.employee_code %></td>
-      <td class="text-center"><%= @attendance_management.first.user.name %></td>
+      <td class="text-center"><%= @user.section %></td>
+      <td class="text-right"><%= @user.employee_code %></td>
+      <td class="text-right"><%= @user.payment %></td>
+      <td class="text-center"><%= @user.name %></td>
     </tr>
   </table>
 </div>
@@ -18,24 +20,10 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th rowspan="2" class="text-center">勤怠</th><th>出勤日数</th><th>勤務時間</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+        <th rowspan="2" class="text-center">勤怠</th><th class="text-center">出勤日数</th><th class="text-center">勤務時間</th><th></th><th></th>
       </tr>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th rowspan="2">支給</th><th>基本給</th><th>特別手当</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-      </tr>
-      <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="text-right"><%= @attendance_management.count %></td><td class="text-right"><%= @total_time %></td><td></td><td></td>
       </tr>
     </thead>
     <tbody>
@@ -46,7 +34,22 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th rowspan="4">控除</th><th>所得税</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+        <th rowspan="2" class="text-center">支給</th><th class="text-center">基本給</th><th class="text-center">特別手当</th><th class="text-center">交通費</th><th></th><th></th><th></th><th></th><th></th>
+        <th class="text-center">課税支給額</th><th class="text-center">非課税支給額</th><th class="text-center">総支給額</th>
+      </tr>
+      <tr>
+        <td class="text-right"><%= @total_pay %></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+<div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="4" class="text-center">控除</th><th class="text-center">所得税</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
       </tr>
       <tr>
         <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
@@ -66,7 +69,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>差引支給額</th>
+        <th class="text-center">差引支給額</th>
       </tr>
       <tr>
         <td></td>
@@ -76,3 +79,4 @@
     </tbody>
   </table>
 </div>
+<%= link_to "#{@user.name}:PDF表示", details_admin_attendance_management_path(format: 'pdf') %>
