@@ -11,9 +11,7 @@
       <%= form_with url: admin_attendance_managements_path, method: :get, local: true do |f| %>
         <%= f.label :name, '氏名で検索する' %>
         <%= f.text_field :name %>
-
         <!-- <%#= f.select :s_month, [['先月', 1], ['先々月', 2], ['三ヶ月前', 3]] %> -->
-
         <%= f.submit "検索", class: "btn btn-secondary" %>
       <% end %>
     </span>
@@ -37,16 +35,16 @@
           <td><%= a.res_break_out.strftime('%H:%M') %></td>
           <td><%= a.res_leaving.strftime('%H:%M') %></td>
           <% working = (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60 %>
-          <td><%= working %></td>
-          <td><%= a.user.payment %></td>
-          <td><%= a.user.payment.to_i * working.to_i %></td>
+          <td class="text-right"><%= working %></td>
+          <td class="text-right"><%= a.user.payment %></td>
+          <td class="text-right"><%= a.user.payment.to_i * working.to_i %></td>
           <% total_time = total_time.to_i + working.to_i %>
           <% total_pay = total_pay.to_i + a.user.payment.to_i * working.to_i %>
         </tr>
         <% end %>
         <tr>
           <td class="result-total" colspan="6">労働時間合計 / 支給額合計(円)</td>
-          <td><%= total_time %></td><td></td><td><%= total_pay %></td>
+          <td class="text-right"><%= total_time %></td><td colspan="2" class="text-right"><%= total_pay %></td>
         </tr>
       </tbody>
     </table>

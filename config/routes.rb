@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :attendance_managements, only: [:index, :show, :update, :destroy] do
+    resources :attendance_managements, only: [:index, :show, :destroy] do
       collection do
         get :shift
         post :approve

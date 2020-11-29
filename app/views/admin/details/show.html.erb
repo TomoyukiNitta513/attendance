@@ -1,0 +1,11 @@
+<div>
+  <table class="table">
+    <tr><th>氏名</th><td><%= @user.name %></td></tr>
+    <% @detail.each do |d| %>
+    <tr><th>月度</th><td><%= d.registration_date.strftime("%Y年%m月") %>度</td></tr>
+    <tr><th>交通費</th><td><%= d.carfare %>円</td></tr>
+    <tr><th>所得税</th><td><%= d.income_tax %>円</td></tr>
+    <% end %>
+  </table>
+  <p><%= link_to "編集する", edit_admin_detail_path %></p>
+</div>

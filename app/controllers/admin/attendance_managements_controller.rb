@@ -18,8 +18,10 @@ class Admin::AttendanceManagementsController < ApplicationController
     unless @name.blank?
       @user = User.where(name: @name).first
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
+      # this_month_extract.where(user_id: @user.id)
     else
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
+      # this_month_extract
     end
   end
 
@@ -27,6 +29,19 @@ class Admin::AttendanceManagementsController < ApplicationController
   def show
     @user = User.find(params[:id])
     @attendance_management = @user.attendance_managements.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month)
+    @detail = @user.details.where(registration_date: Date.today.beginning_of_month..Date.today.end_of_month)
+    @detail.each do |d|
+      @carfare = d.carfare
+      @income_tax = d.income_tax
+    end
+    # @name = params[:name]
+    # unless @name.blank?
+    #   @user = User.where(name: @name)
+    #   @attendance_management = AttendanceManagement.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month).where(user_id: @user.id)
+    # else
+    #   @user = User.first(:id)
+    #   @attendance_management = AttendanceManagement.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month).where(user_id: @user.id)
+    # end
     @total_time = 0
     @total_pay = 0
     @attendance_management.each do |a|
@@ -56,8 +71,10 @@ class Admin::AttendanceManagementsController < ApplicationController
     unless @name.blank?
       @user = User.where(name: @name).first
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month).where(user_id: @user.id)
+      # this_month_extract.where(user_id: @user.id)
     else
       @attendance_managements = AttendanceManagement.where(attendance_date: @s_date.beginning_of_month..@s_date.end_of_month)
+      # this_month_extract
     end
   end
 
@@ -67,6 +84,7 @@ class Admin::AttendanceManagementsController < ApplicationController
     @date = Date.today.next_month
     if @approval_flag_all == "true"
       @attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month)
+      this_month_extract
       @attendance_managements.update_all(approval_flag: true)
       flash[:success] = "シフトを確定しました。"
       redirect_to shift_admin_attendance_managements_path
@@ -94,4 +112,7 @@ class Admin::AttendanceManagementsController < ApplicationController
         :res_break_out, :res_leaving, :user_id, :attendance_date)
     end
 
+    # def this_month_extract
+    #   @attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month)
+    # end
 end

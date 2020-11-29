@@ -1,5 +1,5 @@
 <div class="container">
-  <h3>ユーザー情報</h3>
+  <h3>従業員情報</h3>
   <div>
     <table class="table">
       <tr>
@@ -32,7 +32,8 @@
   <div id="att_regi">
     <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
     <p><%= link_to "給与明細を表示する", admin_attendance_management_path(@user.id) %><p>
-    <p><%= link_to "給与明細の詳細を登録する", new_admin_detail_path(did: @user.id) %><p>
+    <p><%= link_to "給与明細の追加項目を登録する", new_admin_detail_path(d_id: @user.id) %><p>
+    <p><%= link_to "給与明細の追加項目を表示する", admin_detail_path %><p>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
     <table class="table table-bordered">
@@ -66,6 +67,7 @@
       </tbody>
   </div>
   <div>
-    <%= link_to "シフトを登録する", attendance_managements_path %>
+    <%= link_to "来月のシフトを登録する", attendance_managements_path %>
   </div>
+  <span id="att_regi"></span>
 </div>

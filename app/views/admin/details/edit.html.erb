@@ -1,0 +1,11 @@
+<%= form_with url: admin_detail_path, method: :patch do |f| %>
+<div class="form-group">
+  <%= f.label :carfare, "交通費" %>
+  <%= f.number_field :carfare, class: 'form-control' %>
+
+  <%= f.label :income_tax, "所得税" %>
+  <%= f.number_field :income_tax, class: 'form-control' %>
+
+  <%= f.submit '更新', class: 'btn btn-primary' %>
+</div>
+<% end %>

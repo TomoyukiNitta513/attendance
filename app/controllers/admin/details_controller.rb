@@ -1,27 +1,30 @@
 class Admin::DetailsController < ApplicationController
   before_action :logged_in_user
   before_action :admin_user
-  before_action :set_detail, only: [:show, :edit, :update, :destroy]
+  before_action :set_detail, only: [:edit, :update, :destroy]
 
   def index
     @details = Detail.all
   end
 
   def show
+    @user = User.find(params[:id])
+    @detail = @user.details.where(registration_date: Date.today.beginning_of_month..Date.today.end_of_month).first
   end
 
   def new
     @detail = Detail.new
-    @detail.user_id = params[:did]
+    @detail.user_id = params[:d_id]
   end
 
   def create
     @detail = Detail.new(detail_params)
-    binding.pry
+    # binding.pry
     if @detail.save
-      redirect_to @detail, notice: '登録されました。'
+      redirect_to admin_detail_path, flash: {success: '登録されました。'}
     else
-      render :new, alert: '登録出来ませんでした。'
+      flash[:danger] = '登録出来ませんでした。'
+      render :new
     end
   end
 
@@ -30,9 +33,10 @@ class Admin::DetailsController < ApplicationController
 
   def update
     if @detail.update(detail_params)
-      redirect_to @detail, notice: '更新されました。'
+      redirect_to admin_detail_path, flash: {success: '更新されました。'}
     else
-      render :edit, alert: '更新できませんでした。'
+      flash[:danger] = '更新できませんでした。'
+      render :edit
     end
   end
 

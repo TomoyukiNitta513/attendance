@@ -1,6 +1,6 @@
 <%= link_to "#{@user.name}:PDF表示", admin_attendance_management_path(format: 'pdf') %>
 <div>
-  <p>給与明細書</p>
+  <strong>給与明細書</strong>
   <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
 </div>
 <div>
@@ -34,11 +34,12 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th rowspan="2" class="text-center">支給</th><th class="text-center">基本給</th><th class="text-center">特別手当</th><th class="text-center">交通費</th><th></th><th></th><th></th><th></th><th></th>
+        <th rowspan="2" class="text-center">支給</th><th class="text-center">基本給</th><th class="text-center">特別手当</th><th class="text-center">交通費</th>
         <th class="text-center">課税支給額</th><th class="text-center">非課税支給額</th><th class="text-center">総支給額</th>
       </tr>
       <tr>
-        <td class="text-right"><%= @total_pay %></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="text-right"><%= @total_pay %></td><td></td><td class="text-right"><%= @carfare %></td>
+        <td class="text-right"><%= @total_pay %></td><td class="text-right"><%= @carfare %></td><td class="text-right"><%= @total_pay + @carfare %></td>
       </tr>
     </thead>
     <tbody>
@@ -49,16 +50,10 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th rowspan="4" class="text-center">控除</th><th class="text-center">所得税</th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
+        <th rowspan="2" class="text-center">控除</th><th class="text-center">所得税</th><th></th><th></th><th></th><th></th><th></th>
       </tr>
       <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
-      </tr>
-      <tr>
-        <th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th>
-      </tr>
-      <tr>
-        <td></td><td></td><td></td><td></td><td></td><td></td><d></td><td></td><td></td><td></td><td></td><td></td>
+        <td class="text-right"><%= @income_tax %></td><td></td><td></td><td></td><td></td><td></td>
       </tr>
     </thead>
     <tbody>
@@ -72,11 +67,10 @@
         <th class="text-center">差引支給額</th>
       </tr>
       <tr>
-        <td></td>
+        <td class="text-right"><%= @total_pay + @carfare - @income_tax %></td>
       </tr>
     </thead>
     <tbody>
     </tbody>
   </table>
 </div>
-<%= link_to "#{@user.name}:PDF表示", admin_detail_path(format: 'pdf') %>
