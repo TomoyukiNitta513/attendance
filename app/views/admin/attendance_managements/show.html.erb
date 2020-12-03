@@ -1,76 +1,106 @@
-<%= link_to "#{@user.name}:PDF表示", admin_attendance_management_path(format: 'pdf') %>
-<div>
-  <strong>給与明細書</strong>
-  <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
-</div>
-<div>
-  <table class="table table-bordered">
-    <tr>
-      <th class="details-title">部門</th><th class="details-title">従業員コード</th><th class="text-center">時給</th><th class="details-title">氏名</th>
-    </tr>
-    <tr>
-      <td class="text-center"><%= @user.section %></td>
-      <td class="text-right"><%= @user.employee_code %></td>
-      <td class="text-right"><%= @user.payment %></td>
-      <td class="text-center"><%= @user.name %></td>
-    </tr>
-  </table>
-</div>
-<div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th rowspan="2" class="text-center">勤怠</th><th class="text-center">出勤日数</th><th class="text-center">勤務時間</th><th></th><th></th>
-      </tr>
-      <tr>
-        <td class="text-right"><%= @attendance_management.count %></td><td class="text-right"><%= @total_time %></td><td></td><td></td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th rowspan="2" class="text-center">支給</th><th class="text-center">基本給</th><th class="text-center">特別手当</th><th class="text-center">交通費</th>
-        <th class="text-center">課税支給額</th><th class="text-center">非課税支給額</th><th class="text-center">総支給額</th>
-      </tr>
-      <tr>
-        <td class="text-right"><%= @total_pay %></td><td></td><td class="text-right"><%= @carfare %></td>
-        <td class="text-right"><%= @total_pay %></td><td class="text-right"><%= @carfare %></td><td class="text-right"><%= @total_pay + @carfare %></td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th rowspan="2" class="text-center">控除</th><th class="text-center">所得税</th><th></th><th></th><th></th><th></th><th></th>
-      </tr>
-      <tr>
-        <td class="text-right"><%= @income_tax %></td><td></td><td></td><td></td><td></td><td></td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-</div>
-<div>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">差引支給額</th>
-      </tr>
-      <tr>
-        <td class="text-right"><%= @total_pay + @carfare - @income_tax %></td>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+<div class="container">
+  <%= link_to "#{@user.name}:PDF表示", admin_attendance_management_path(format: 'pdf') %>
+  <div>
+    <strong class="meisai_title">給与明細書</strong>
+    <p><%= @attendance_management.first.attendance_date.strftime("%Y年%m月") %>分</p>
+  </div>
+  <div>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-center">部門</th>
+          <th class="text-center">従業員コード</th>
+          <th class="text-center">時給</th>
+          <th class="text-center">氏名</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center"><%= @user.section %></td>
+          <td class="text-right"><%= @user.employee_code %></td>
+          <td class="text-right"><%= @user.payment %></td>
+          <td class="text-center"><%= @user.name %></td>
+        </tr>
+      </tbody>
+      <thead class="thead-dark">
+        <tr>
+          <th rowspan="2" class="text-center">勤怠</th>
+          <th class="text-center">出勤日数</th>
+          <th class="text-center">勤務時間</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td class="text-right"><%= @attendance_management.count %></td>
+          <td class="text-right"><%= @total_time %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+      <thead class="thead-dark">
+        <tr>
+          <th rowspan="2" class="text-center">支給</th>
+          <th class="text-center">基本給</th>
+          <th class="text-center">特別手当</th>
+          <th class="text-center">交通費</th>
+          <th class="text-center">課税支給額</th>
+          <th class="text-center">非課税支給額</th>
+          <th class="text-center">総支給額</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td class="text-right"><%= @total_pay %></td>
+          <td></td>
+          <td class="text-right"><%= @carfare %></td>
+          <td class="text-right"><%= @total_pay %></td>
+          <td class="text-right"><%= @carfare %></td>
+          <td class="text-right"><%= @total_pay + @carfare %></td>
+        </tr>
+      </tbody>
+      <thead class="thead-dark">
+        <tr>
+          <th rowspan="2" class="text-center">控除</th>
+          <th class="text-center">所得税</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      <tbody>
+        <tr>
+          <td></td>
+          <td class="text-right"><%= @tax.round(-1) %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+      <thead class="thead-dark">
+        <tr>
+          <th class="text-center">差引支給額</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-right">
+          <% total_pay = 0 %>
+          <% total_pay = @total_pay + @carfare - @tax.round(-1) %>
+          <%= total_pay %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

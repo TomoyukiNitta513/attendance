@@ -1,6 +1,6 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
-
+.thead-dark {
+  background-color: lightgray;
+}
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
@@ -168,6 +168,6 @@ input {
 
 /* 給与明細 */
 
-.details-title {
+.meisai_title {
   text-align: center;
 }

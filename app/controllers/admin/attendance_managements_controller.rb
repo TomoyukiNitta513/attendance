@@ -49,6 +49,22 @@ class Admin::AttendanceManagementsController < ApplicationController
       @total_time = @total_time.to_i + working.to_i
       @total_pay = @total_pay.to_i + a.user.payment.to_i * working.to_i
     end
+    # 源泉徴収額計算
+    if @total_pay.to_i <= 162500
+      @tax = @total_pay.to_i * 0.05105
+    elsif @total_pay.to_i.between?(162501, 275000)
+      @tax = @total_pay.to_i * 0.1021 - 8296
+    elsif @total_pay.to_i.between?(275001, 579166)
+      @tax = @total_pay.to_i * 0.2042 - 36374
+    elsif @total_pay.to_i.between?(579167, 750000)
+      @tax = @total_pay.to_i * 0.23483 - 54113
+    elsif @total_pay.to_i.between?(750001, 1500000)
+      @tax = @total_pay.to_i * 0.33693 - 130688
+    elsif @total_pay.to_i.between?(1500001, 3333333)
+      @tax = @total_pay.to_i * 0.4084 - 237893
+    else
+      @tax = @total_pay.to_i * 0.45945 - 408061
+    end
     respond_to do |format|
       format.html
       format.pdf { prawnto :prawn => {
