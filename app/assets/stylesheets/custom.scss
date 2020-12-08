@@ -1,15 +1,4 @@
-.thead-dark {
-  background-color: lightgray;
-}
-/* mixins, variables, etc. */
 
-$gray-medium-light: #eaeaea;
-
-@mixin box_sizing {
-  -moz-box-sizing:    border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
-}
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
@@ -115,6 +104,13 @@ input {
   }
 }
 
+// .field_with_errors {
+//   display: contents;
+//   input {
+//     @extend .is-invalid;
+//   }
+// }
+
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
@@ -142,8 +138,18 @@ input {
   li {
     overflow: auto;
     padding: 10px 0;
-    border-bottom: 1px solid $gray-lighter;
+    border-bottom: 1px solid #cccccc;
   }
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }
 
 /* シフトの登録 */
@@ -168,6 +174,6 @@ input {
 
 /* 給与明細 */
 
-.meisai_title {
-  text-align: center;
+.thead-light {
+  background-color: lightgray;
 }

@@ -34,14 +34,6 @@ class Admin::AttendanceManagementsController < ApplicationController
       @carfare = d.carfare
       @income_tax = d.income_tax
     end
-    # @name = params[:name]
-    # unless @name.blank?
-    #   @user = User.where(name: @name)
-    #   @attendance_management = AttendanceManagement.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month).where(user_id: @user.id)
-    # else
-    #   @user = User.first(:id)
-    #   @attendance_management = AttendanceManagement.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month).where(user_id: @user.id)
-    # end
     @total_time = 0
     @total_pay = 0
     @attendance_management.each do |a|
@@ -68,7 +60,7 @@ class Admin::AttendanceManagementsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf { prawnto :prawn => {
-        :page_layout => :landscape, # 縦:portrait、 横:landscape
+        :page_layout => :portrait, # 縦:portrait、 横:landscape
         :page_size => 'A4',
         :left_margin => 20,
         :right_margin => 20,
