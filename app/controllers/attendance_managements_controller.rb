@@ -43,17 +43,17 @@ class AttendanceManagementsController < ApplicationController
   end
 
   def edit_2
-    respond_to do |format|
-      format.js
-    end
+    # respond_to do |format|
+    #   format.js
+    # end
   end
 
   def update
     if @attendance_management.update_attributes(attendance_management_params)
-      flash.now[:success] = "シフトを編集しました。"
+      flash.now[:success] = "情報を更新しました。"
       redirect_to attendance_managements_path
     else
-      flash.now[:danger] = "シフトの編集が出来ませんでした。"
+      flash.now[:danger] = "情報の更新が出来ませんでした。"
       redirect_to attendance_managements_path
     end
   end

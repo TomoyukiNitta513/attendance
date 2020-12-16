@@ -40,7 +40,8 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 3em;
   letter-spacing: -2px;
-  margin-bottom: 30px;
+  margin-top: 100px;
+  margin-bottom: 100px;
   text-align: center;
 }
 
@@ -76,6 +77,14 @@ p {
   text-decoration: none;
 }
 
+/* login */
+
+#login {
+  float: center;
+  font-size: 1.5em;
+  text-align: center;
+}
+
 /* forms */
 
 input, textarea, select, .uneditable-input {
@@ -97,19 +106,19 @@ input {
   }
 }
 
-.field_with_errors {
-  @extend .has-error;
-  .form-control {
-    color: $state-danger-text;
-  }
-}
-
 // .field_with_errors {
-//   display: contents;
-//   input {
-//     @extend .is-invalid;
+//   @extend .has-error;
+//   .form-control {
+//     color: $state-danger-text;
 //   }
 // }
+
+.field_with_errors {
+  display: contents;
+  input {
+    @extend .is-invalid;
+  }
+}
 
 .checkbox {
   margin-top: -10px;
@@ -125,10 +134,10 @@ input {
   margin-left: 0;
 }
 
-/* Static_pages */
-.login {
-  text-align: center;
-}
+// /* Static_pages */
+// .login {
+//   text-align: center;
+// }
 
 /* Users index */
 
@@ -174,6 +183,6 @@ input {
 
 /* 給与明細 */
 
-.thead-light {
-  background-color: lightgray;
-}
+// .thead-light {
+//   background-color: lightgray;
+// }

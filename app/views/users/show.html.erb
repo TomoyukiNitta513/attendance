@@ -1,6 +1,6 @@
 <div class="container">
   <h3>従業員情報</h3>
-  <div>
+    <span><%= link_to "従業員情報を編集する", edit_user_path %></span>
     <table class="table">
       <tr>
         <th>従業員氏名</th>
@@ -28,12 +28,12 @@
           <td><%= @user.admin %></td>
         </tr>
     </table>
-  </div>
-  <div id="att_regi">
-    <p><%= link_to "従業員情報を編集する", edit_user_path %></p>
+    <span id="att_regi"></span>
+        <% unless @user.payment.blank? %>
     <p><%= link_to "給与明細を表示する", admin_attendance_management_path(@user.id) %><p>
     <p><%= link_to "給与明細の追加項目を登録する", new_admin_detail_path(d_id: @user.id) %><p>
     <p><%= link_to "給与明細の追加項目を表示する", admin_detail_path %><p>
+        <% end %>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
     <table class="table table-bordered">
@@ -43,7 +43,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @attendance_managements.each do |a| %>
+        <% @attendance_management.each do |a| %>
         <tr>
           <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
           <td><%= a.sch_attendance.strftime('%H:%M') %></td>
@@ -65,9 +65,8 @@
         </tr>
         <% end %>
       </tbody>
-  </div>
-  <div>
+    </table>
+  <p>
     <%= link_to "来月のシフトを登録する", attendance_managements_path %>
-  </div>
-  <span id="att_regi"></span>
+  </p>
 </div>

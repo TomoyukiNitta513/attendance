@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @attendance_managements = @user.attendance_managements.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month)
+    @attendance_management = @user.attendance_managements.where(attendance_date: Date.today.beginning_of_month..Date.today.end_of_month)
     redirect_to root_url and return unless @user.activated?
   end
 
