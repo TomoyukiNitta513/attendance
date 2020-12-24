@@ -1,21 +1,16 @@
-<div class="container">
+<div class="container mt-3">
   <h3>勤怠実績一覧</h3>
-  <div>
-    <span>
-      <%= link_to "前月", admin_attendance_managements_path(s_month: 'previous'), method: :post %>
-    </span> |
-    <span>
-      <%= link_to "翌月", admin_attendance_managements_path(s_month: 'next'), method: :post %>
-    </span>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <%= button_to "前月", admin_attendance_managements_path(s_month: 'previous'), method: :post, class: "btn btn-outline-secondary" %>
+    <%= button_to "翌月", admin_attendance_managements_path(s_month: 'next'), method: :post, class: "btn btn-outline-primary" %>
+  </div>
     <span>
       <%= form_with url: admin_attendance_managements_path, method: :get, local: true do |f| %>
         <%= f.label :name, '氏名で検索する' %>
         <%= f.text_field :name %>
-        <!-- <%#= f.select :s_month, [['先月', 1], ['先々月', 2], ['三ヶ月前', 3]] %> -->
         <%= f.submit "検索", class: "btn btn-secondary" %>
       <% end %>
     </span>
-  </div>
   <div>
     <table class="table table-bordered">
       <thead>

@@ -92,7 +92,6 @@ class Admin::AttendanceManagementsController < ApplicationController
     @date = Date.today.next_month
     if @approval_flag_all == "true"
       @attendance_managements = AttendanceManagement.where(attendance_date: @date.beginning_of_month..@date.end_of_month)
-      this_month_extract
       @attendance_managements.update_all(approval_flag: true)
       flash[:success] = "シフトを確定しました。"
       redirect_to shift_admin_attendance_managements_path

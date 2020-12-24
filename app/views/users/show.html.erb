@@ -1,6 +1,6 @@
-<div class="container">
+<div class="container mt-5">
   <h3>従業員情報</h3>
-    <span><%= link_to "従業員情報を編集する", edit_user_path %></span>
+    <p><%= link_to "従業員情報を編集", edit_user_path if current_user.admin? %></p>
     <table class="table">
       <tr>
         <th>従業員氏名</th>
@@ -28,11 +28,17 @@
           <td><%= @user.admin %></td>
         </tr>
     </table>
-    <span id="att_regi"></span>
         <% unless @user.payment.blank? %>
-    <p><%= link_to "給与明細を表示する", admin_attendance_management_path(@user.id) %><p>
-    <p><%= link_to "給与明細の追加項目を登録する", new_admin_detail_path(d_id: @user.id) %><p>
-    <p><%= link_to "給与明細の追加項目を表示する", admin_detail_path %><p>
+        <div class="dropdown">
+          <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            管理者メニュー
+          </a>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <%= link_to "給与明細を表示", admin_attendance_management_path(@user.id), class: "dropdown-item" %>
+            <%= link_to "給与明細の追加項目を登録", new_admin_detail_path(d_id: @user.id), class: "dropdown-item" %>
+            <%= link_to "給与明細の追加項目を表示", admin_detail_path, class: "dropdown-item" %>
+          </div>
+        </div>
         <% end %>
       <% end %>
     <p><%= @user.name %>さんの今月のシフト</p>
@@ -66,7 +72,6 @@
         <% end %>
       </tbody>
     </table>
-  <p>
-    <%= link_to "来月のシフトを登録する", attendance_managements_path %>
-  </p>
+  <p><%= link_to "来月のシフトを登録する", attendance_managements_path %></p>
+  <span id="att_regi"></span>
 </div>

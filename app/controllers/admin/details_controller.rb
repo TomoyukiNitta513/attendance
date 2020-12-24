@@ -9,7 +9,7 @@ class Admin::DetailsController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @detail = @user.details.where(registration_date: Date.today.beginning_of_month..Date.today.end_of_month).first
+    @detail = @user.details.where(registration_date: Date.today.beginning_of_month..Date.today.end_of_month)
   end
 
   def new
@@ -21,7 +21,7 @@ class Admin::DetailsController < ApplicationController
     @detail = Detail.new(detail_params)
     # binding.pry
     if @detail.save
-      redirect_to @detail, flash: {success: '登録されました。'}
+      redirect_to admin_detail_path, flash: {success: '登録されました。'}
     else
       flash[:danger] = '登録出来ませんでした。'
       render :new

@@ -4,7 +4,7 @@
 
   <%= f.label :attendance_date, "出勤日" %>
   <%= f.date_field :attendance_date,
-        value: @attendance_management.attendance_date, class: 'form-control' %>
+        value: @attendance_management.attendance_date, class: 'form-control', readonly: true %>
 
   <%= f.label :sch_attendance, "出勤時間" %>
   <%= f.time_field :sch_attendance, class: 'form-control' %>

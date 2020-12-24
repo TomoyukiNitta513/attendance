@@ -1,6 +1,10 @@
   <div class="container">
     <h1>勤怠管理アプリ（仮）へようこそ！</h1>
     <%#= link_to "ログイン", login_path, id: "login" %>
-    <%= button_to "ログイン", login_path, class: "btn btn-primary", method: :get %>
+    <% unless logged_in? %>
+      <%= button_to "ログイン", login_path, class: "btn btn-primary", method: :get %>
+    <% else %>
+      <%= button_to "ログアウト", logout_path, class: "btn btn-secondary", method: :delete %>
+    <% end %>
     <!-- <span><a href="https://pixabay.com/ja/users/manuchi-1728328/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2462431">Денис Марчук</a>による<a href="https://pixabay.com/ja/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2462431">Pixabay</a>からの画像</span> -->
   </div>

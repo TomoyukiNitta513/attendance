@@ -11,31 +11,35 @@ y_tyousei_2 = 10
 x = 45 #横
 y = 700 #縦
 
+pdf.fill_color "000000"
 pdf.draw_text @attendance_management.first.attendance_date.strftime("%Y年%m月分"), :at => [x, y]
-pdf.draw_text @user.section, :at => [x, y - 53]
-pdf.draw_text @user.employee_code, :at => [x + 70, y - 53]
-pdf.draw_text @user.payment, :at => [x + 140, y - 53]
-pdf.draw_text @user.name, :at => [x + 210, y - 53]
 
-y = 600
+y = 652
+pdf.text_box "#{number_with_delimiter(@user.section)}", :size => 12, :at => [x - 5, y], :width => 70, :align => :center
+pdf.text_box "#{number_with_delimiter(@user.employee_code)}", :size => 12, :at => [x + 60, y], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@user.payment)}", :size => 12, :at => [x + 130, y], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@user.name)}", :size => 12, :at => [x + 205, y], :width => 70, :align => :center
 
-pdf.draw_text @attendance_management.count, :at => [x + 70, y]
-pdf.draw_text @total_time, :at => [x + 140, y]
+y = 601
 
-y = 550
+pdf.text_box "#{number_with_delimiter(@attendance_management.count)}", :size => 12, :at => [x + 60, y], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@total_time)}", :size => 12, :at => [x + 130, y], :width => 70, :align => :right
 
-pdf.draw_text @total_pay, :at => [x + 70, y]
-pdf.draw_text @carfare, :at => [x + 210, y]
-pdf.draw_text @total_pay, :at => [x + 280, y]
-pdf.draw_text @carfare, :at => [x + 350, y]
-pdf.draw_text @total_pay + @carfare, :at => [x + 420, y]
+y = 546
 
-y = 500
+pdf.text_box "#{number_with_delimiter(@total_pay)}", :size => 12, :at => [x + 60, y + 5], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@carfare)}", :size => 12, :at => [x + 200, y + 5], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@total_pay)}", :size => 12, :at => [x + 270, y + 5], :width => 70, :align => :right
+pdf.text_box "#{number_with_delimiter(@carfare)}", :size => 12, :at => [x + 340, y + 5], :width => 70, :align => :right
+total_pay_wo_tax = @total_pay + @carfare
+pdf.text_box "#{number_with_delimiter(total_pay_wo_tax)}", :size => 12, :at => [x + 410, y + 5], :width => 70, :align => :right
 
-pdf.draw_text @tax.round(-1), :at => [x + 70, y]
+y = 501
 
-y = 450
+pdf.text_box "#{number_with_delimiter(@tax.round(-1))}", :size => 12, :at => [x + 60, y], :width => 70, :align => :right
+
+y = 452
 
 total_pay = 0
 total_pay = @total_pay + @carfare - @tax.round(-1)
-pdf.draw_text total_pay, :at => [x + 420, y]
+pdf.text_box "#{number_with_delimiter(total_pay)}", :size => 12, :at => [x + 410, y], :width => 70, :align => :right
