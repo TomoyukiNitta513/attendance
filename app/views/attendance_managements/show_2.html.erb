@@ -1,0 +1,17 @@
+<div class="container mt-3">
+  <h3><%= @shift_date.to_date.strftime("%Y年%m月%d日") %>のシフト</h3>
+  <table class="table table-bordered">
+    <tr>
+      <th>氏名</th>
+      <th>出勤</th>
+      <th>退勤</th>
+    </tr>
+    <% @attendance_managements.each do |a| %>
+    <tr>
+      <td><%= a.user.name %></td>
+      <td><%= a.sch_attendance.strftime('%H:%M') %></td>
+      <td><%= a.sch_leaving.strftime('%H:%M') %></td>
+    </tr>
+    <% end %>
+  </table>
+</div>

@@ -13,7 +13,16 @@ class AttendanceManagementsController < ApplicationController
     end
   end
 
+  def index_2
+    @date = Date.today
+  end
+
   def show
+  end
+
+  def show_2
+    @shift_date = params[:shift_date]
+    @attendance_managements = AttendanceManagement.where(attendance_date: @shift_date)
   end
 
   def new

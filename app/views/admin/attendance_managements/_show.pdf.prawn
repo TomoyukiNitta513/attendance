@@ -129,9 +129,9 @@ p_pdf.bounding_box([x, y - 25], :width => 70, :height => 25) do
 end
 
 x = 45
-y = 564
+y = 568
 
-p_pdf.draw_text "支給", :at => [x + 19, y - 10], :size => font_size
+p_pdf.draw_text "支給", :at => [x + 19, y - 12], :size => font_size
 p_pdf.draw_text "基本給", :at => [x + 85, y], :size => font_size
 p_pdf.draw_text "特別手当", :at => [x + 150, y], :size => font_size
 p_pdf.draw_text "交通費", :at => [x + 225, y], :size => font_size
@@ -139,11 +139,11 @@ p_pdf.draw_text "課税支給額", :at => [x + 285, y], :size => font_size
 p_pdf.draw_text "非課税支給額", :at => [x + 350, y], :size => font_size
 p_pdf.draw_text "総支給額", :at => [x + 430, y], :size => font_size
 
-y = 514
+y = 518
 
-p_pdf.draw_text "控除", :at => [x + 19, y - 10], :size => font_size
+p_pdf.draw_text "控除", :at => [x + 19, y - 12], :size => font_size
 p_pdf.draw_text "所得税", :at => [x + 85, y], :size => font_size
 
-y = 464
+y = 468
 
 p_pdf.draw_text "差引支給額", :at => [x + 425, y], :size => font_size

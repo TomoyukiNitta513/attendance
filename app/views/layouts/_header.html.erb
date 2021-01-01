@@ -29,6 +29,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <%= link_to "プロフィール", current_user, class: "dropdown-item" %>
               <%= link_to "シフト登録", attendance_managements_path, class: "dropdown-item" %>
+              <%= link_to "シフト表", index_2_attendance_managements_path, class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
                 <%= link_to "ログアウト", logout_path, class: "dropdown-item", method: :delete %>
             </div>

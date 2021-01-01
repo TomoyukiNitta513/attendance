@@ -10,7 +10,7 @@ class Admin::AttendanceManagementsController < ApplicationController
     @name = params[:name]
     unless @s_month.blank?
       if @s_month == 'previous'
-        @s_date = @s_date.last_month
+        @s_date = @s_date.prev_month
       elsif @s_month == 'next'
         @s_date = @s_date.next_month
       end
