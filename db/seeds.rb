@@ -21,7 +21,7 @@ User.create!(name: "Example User",
   activated: true,
   activated_at: Time.zone.now)
 
-20.times do |n|
+15.times do |n|
   name = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -38,7 +38,51 @@ User.create!(name: "Example User",
     activated_at: Time.zone.now)
 end
 
-20.times do |n|
+8.times do |n|
+  id = "#{n+1}"
+  a_date = Date.today.prev_month.beginning_of_month
+  4.times do
+    5.times do
+    AttendanceManagement.create!(
+      user_id: id,
+      attendance_date: a_date,
+      sch_attendance: Time.parse("2000/01/01 08:00"),
+      sch_leaving: Time.parse("2000/01/01 16:00"),
+      res_attendance: Time.parse("2000/01/01 08:01"),
+      res_break_in: Time.parse("2000/01/01 12:00"),
+      res_break_out: Time.parse("2000/01/01 13:00"),
+      res_leaving: Time.parse("2000/01/01 16:01"),
+      approval_flag: true
+    )
+    a_date += 1
+    end
+    a_date += 2
+  end
+end
+
+8.times do |n|
+  id = "#{n+9}"
+  a_date = Date.today.prev_month.beginning_of_month
+  4.times do
+    5.times do
+    AttendanceManagement.create!(
+      user_id: id,
+      attendance_date: a_date,
+      sch_attendance: Time.parse("2000/01/01 15:00"),
+      sch_leaving: Time.parse("2000/01/01 23:00"),
+      res_attendance: Time.parse("2000/01/01 15:01"),
+      res_break_in: Time.parse("2000/01/01 18:00"),
+      res_break_out: Time.parse("2000/01/01 19:00"),
+      res_leaving: Time.parse("2000/01/01 23:01"),
+      approval_flag: true
+    )
+    a_date += 1
+    end
+    a_date += 2
+  end
+end
+
+8.times do |n|
   id = "#{n+1}"
   a_date = Date.today.beginning_of_month
   4.times do
@@ -60,7 +104,29 @@ end
   end
 end
 
-20.times do |n|
+8.times do |n|
+  id = "#{n+9}"
+  a_date = Date.today.beginning_of_month
+  4.times do
+    5.times do
+    AttendanceManagement.create!(
+      user_id: id,
+      attendance_date: a_date,
+      sch_attendance: Time.parse("2000/01/01 15:00"),
+      sch_leaving: Time.parse("2000/01/01 23:00"),
+      res_attendance: Time.parse("2000/01/01 15:01"),
+      res_break_in: Time.parse("2000/01/01 18:00"),
+      res_break_out: Time.parse("2000/01/01 19:00"),
+      res_leaving: Time.parse("2000/01/01 23:01"),
+      approval_flag: true
+    )
+    a_date += 1
+    end
+    a_date += 2
+  end
+end
+
+16.times do |n|
   id = "#{n+1}"
   a_date = Date.today.next_month.beginning_of_month
   4.times do

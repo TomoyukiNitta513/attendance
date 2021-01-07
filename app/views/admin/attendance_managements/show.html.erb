@@ -18,7 +18,7 @@
         <tr>
           <td class="text-center"><%= @user.section %></td>
           <td class="text-right"><%= @user.employee_code %></td>
-          <td class="text-right"><%= @user.payment %></td>
+          <td class="text-right"><%= number_with_delimiter(@user.payment) %></td>
           <td class="text-center"><%= @user.name %></td>
         </tr>
       </tbody>
@@ -58,13 +58,13 @@
       <tbody>
         <tr>
           <td></td>
-          <td class="text-right"><%= @total_pay %></td>
+          <td class="text-right"><%= number_with_delimiter(@total_pay) %></td>
           <td></td>
-          <td class="text-right"><%= @carfare %></td>
-          <td class="text-right"><%= @total_pay %></td>
-          <td class="text-right"><%= @carfare %></td>
+          <td class="text-right"><%= number_with_delimiter(@carfare) %></td>
+          <td class="text-right"><%= number_with_delimiter(@total_pay) %></td>
+          <td class="text-right"><%= number_with_delimiter(@carfare) %></td>
           <% total_pay_wo_tax = @total_pay + @carfare %>
-          <td class="text-right"><%= total_pay_wo_tax %></td>
+          <td class="text-right"><%= number_with_delimiter(total_pay_wo_tax) %></td>
         </tr>
       </tbody>
       <thead class="thead-light">
@@ -81,7 +81,7 @@
       <tbody>
         <tr>
           <td></td>
-          <td class="text-right"><%= @tax.round(-1) %></td>
+          <td class="text-right"><%= number_with_delimiter(@tax.round(-1)) %></td>
           <td></td>
           <td></td>
           <td></td>
@@ -98,7 +98,7 @@
         <tr>
           <td class="text-right">
           <% total_pay = total_pay_wo_tax - @tax.round(-1) %>
-          <%= total_pay %>
+          <%= number_with_delimiter(total_pay) %>
           </td>
         </tr>
       </tbody>

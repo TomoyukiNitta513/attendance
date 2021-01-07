@@ -21,7 +21,7 @@ class Admin::DetailsController < ApplicationController
     @detail = Detail.new(detail_params)
     # binding.pry
     if @detail.save
-      redirect_to admin_detail_path, flash: {success: '登録されました。'}
+      redirect_to admin_detail_path(@user.id), flash: {success: '登録されました。'}
     else
       flash[:danger] = '登録出来ませんでした。'
       render :new
