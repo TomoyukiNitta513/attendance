@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     collection do
      get :index_2
      get :show_2
+     get :show_3
     end
     member do
       get :edit_2

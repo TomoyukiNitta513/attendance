@@ -25,6 +25,24 @@ class AttendanceManagementsController < ApplicationController
     @attendance_managements = AttendanceManagement.where(attendance_date: @shift_date)
   end
 
+  def show_3
+    @shift_date = params[:shift_date]
+    @attendance_managements = AttendanceManagement.where(attendance_date: @shift_date)
+    respond_to do |format|
+      format.html
+      format.pdf { prawnto :prawn => {
+        :page_layout => :landscape, # 縦:portrait、 横:landscape
+        :page_size => 'A4',
+        :left_margin => 20,
+        :right_margin => 20,
+        :top_margin => 20,
+        :bottom_margin => 20
+        } ,
+      :inline => true
+      }
+    end
+  end
+
   def new
     @attendance_management = AttendanceManagement.new
     @attendance_management.attendance_date = params[:clicked_date]

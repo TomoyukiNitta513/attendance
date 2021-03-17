@@ -18,6 +18,7 @@
       <% end %>
     </tbody>
   </table>
+<p><%= link_to "グラフ印刷", show_3_attendance_managements_path(shift_date: @shift_date, format: 'pdf') %></p>
 <button id="mybutton" type="button" class="btn btn-primary mb-3">グラフ表示</button>
 </div>
 <div class="container" id="mygraph" style="height: 1000px;"></div>
