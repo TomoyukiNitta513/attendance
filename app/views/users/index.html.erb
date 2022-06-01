@@ -1,22 +1,26 @@
 <div class="container">
-  <h1>従業員一覧</h1>
+  <div class="row">
+    <div class="col">
+      <h1>従業員一覧</h1>
 
-  <%= will_paginate %>
+      <%= will_paginate %>
 
-  <p>従業員検索</p>
-  <!-- <%#= form_with url: users_path do |f| %>
-    <%#= f.label :name, '氏名' %>
-    <%#= f.text_field :search %>
-    <%#= f.submit "検索", name: nil %>
-  <%# end %> -->
-  <%= form_tag(users_path, :method => 'get' ) do %>
-    <%= text_field_tag :search %>
-    <%= submit_tag '検索', :name => nil, class: "btn btn-secondary" %>
-  <% end %>
+      <p>従業員検索</p>
+      <!-- <%#= form_with url: users_path do |f| %>
+        <%#= f.label :name, '氏名' %>
+        <%#= f.text_field :search %>
+        <%#= f.submit "検索", name: nil %>
+      <%# end %> -->
+      <%= form_tag(users_path, :method => 'get' ) do %>
+        <%= text_field_tag :search %>
+        <%= submit_tag '検索', :name => nil, class: "btn btn-secondary" %>
+      <% end %>
 
-  <ul class="users">
-    <%= render @users %>
-  </ul>
+      <ul class="users">
+        <%= render @users %>
+      </ul>
 
-  <%= will_paginate %>
+      <%= will_paginate %>
+    </div>
+  </div>
 </div>

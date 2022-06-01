@@ -1,32 +1,32 @@
 <div class="container">
   <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-    <%= link_to "勤怠管理アプリ（仮）", root_path, id: "logo" %>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%= link_to "勤怠管理アプリ（仮）", root_url, class: 'navbar-brand', id: 'logo' %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">ホーム <span class="sr-only">(current)</span></a>
+          <%= link_to "ホーム", root_url, class: 'nav-link' %>
         </li>
         <% if logged_in? %>
           <% if current_user.admin? %>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              管理者機能
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "従業員一覧", users_path, class: "dropdown-item" %>
-              <%= link_to "シフト編集", shift_admin_attendance_managements_path, class: "dropdown-item" %>
-              <%= link_to "勤怠実績一覧", admin_attendance_managements_path, class: "dropdown-item" %>
-            </div>
-          </li>
+            <li class="nav-item active dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                管理者機能
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <%= link_to "従業員一覧", users_path, class: "dropdown-item" %>
+                <%= link_to "シフト編集", shift_admin_attendance_managements_path, class: "dropdown-item" %>
+                <%= link_to "勤怠実績一覧", admin_attendance_managements_path, class: "dropdown-item" %>
+              </div>
+            </li>
           <% end %>
-          <li class="nav-item dropdown">
-            <a  class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li class="nav-item active dropdown">
+            <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= current_user.name %>
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <%= link_to "プロフィール", current_user, class: "dropdown-item" %>
               <%= link_to "シフト登録", attendance_managements_path, class: "dropdown-item" %>
               <%= link_to "シフト表", index_2_attendance_managements_path, class: "dropdown-item" %>
@@ -34,8 +34,13 @@
                 <%= link_to "ログアウト", logout_path, class: "dropdown-item", method: :delete %>
             </div>
           </li>
+          <li class="nav-item active">
+            <%= link_to "ログアウト", logout_path, class: "nav-link", method: :delete %>
+          </li>
         <% else %>
-          <li class="nav-item active"><%= link_to "ログイン", login_path %></li>
+          <li class="nav-item active">
+            <%= link_to "ログイン", login_path, class: 'nav-link' %>
+          </li>
         <% end %>
       </ul>
     </div>
