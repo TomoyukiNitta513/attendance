@@ -1,3 +1,4 @@
+<div class="form-group">
 <%= form_for(@user, url: yield(:url)) do |f| %>
   <%= render 'shared/error_messages', object: @user %>
 
@@ -13,14 +14,16 @@
   <%= f.label :password_confirmation, "パスワード確認のため再入力" %>
   <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-  <%= f.label :employee_code, "従業員コード" %>
-  <%= f.text_field :employee_code, class: 'form-control' %>
+  <% if logged_in? %>
+    <% if current_user.admin? %>
+      <%= f.label :employee_code, "従業員コード" %>
+      <%= f.text_field :employee_code, class: 'form-control' %>
 
-  <!-- <%#= f.label :admin, "管理者権限" %>
-  <%#= f.check_box :admin, :as => :boolean, checked: false %> -->
-
-  <%= f.label :payment, "時給(円)" %>
-  <%= f.text_field :payment, class: 'form-control' %>
+      <%= f.label :payment, "時給(円)" %>
+      <%= f.text_field :payment, class: 'form-control' %>
+    <% end %>
+  <% end %>
 
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
 <% end %>
+</div>

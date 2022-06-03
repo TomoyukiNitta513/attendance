@@ -181,7 +181,8 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (4.0.7)
-    puma (3.12.6)
+    puma (5.6.4)
+      nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3.1)
     rack-test (1.1.0)
@@ -291,7 +292,7 @@ GEM
     will_paginate (3.1.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.27)
+    yard (0.9.28)
       webrick (~> 1.7.0)
 
 PLATFORMS
@@ -323,7 +324,7 @@ DEPENDENCIES
   pry-doc
   pry-rails
   pry-stack_explorer
-  puma (~> 3.11)
+  puma
   rails (~> 5.2.6.3)
   rails-controller-testing (= 1.0.2)
   rspec-rails

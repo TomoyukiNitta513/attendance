@@ -15,7 +15,8 @@ gem 'mail-iso-2022-jp'
 # Use mysql as the database for Active Record
 gem 'mysql2', '>= 0.4.4', '< 0.6.0'
 # Use Puma as the app server
-gem 'puma', '~> 3.11'
+# gem 'puma', '~> 3.11'
+gem 'puma'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 6'
 # Use Uglifier as compressor for JavaScript assets

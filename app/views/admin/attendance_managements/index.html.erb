@@ -1,48 +1,52 @@
 <div class="container mt-3">
-  <h3>勤怠実績一覧</h3>
-  <div class="btn-group" role="group" aria-label="Basic example">
-    <%= button_to "前月", admin_attendance_managements_path(s_month: 'previous'), method: :get, class: "btn btn-outline-primary" %>
-    <%= button_to "翌月", admin_attendance_managements_path(s_month: 'next'), method: :get, class: "btn btn-outline-primary" %>
-  </div>
-  <span>
-    <%= form_with url: admin_attendance_managements_path, method: :get, local: true do |f| %>
-      <%= f.label :name, '氏名で検索する' %>
-      <%= f.text_field :name %>
-      <%= f.submit "検索", class: "btn btn-secondary" %>
-    <% end %>
-  </span>
-  <div>
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>休憩入</th><th>休憩戻</th><th>退勤時間</th><th>労働時間(時間)</th><th>時給(円)</th><th>支給額(円)</th>
-        </tr>
-      </thead>
-      <% total_time = 0 %>
-      <% total_pay = 0 %>
-      <tbody>
-        <% @attendance_managements.each do |a| %>
-        <tr>
-          <td><%= a.user.name %></td>
-          <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
-          <td><%= a.res_attendance.strftime('%H:%M') %></td>
-          <td><%= a.res_break_in.strftime('%H:%M') %></td>
-          <td><%= a.res_break_out.strftime('%H:%M') %></td>
-          <td><%= a.res_leaving.strftime('%H:%M') %></td>
-          <% working = (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60 %>
-          <td class="text-right"><%= working %></td>
-          <td class="text-right"><%= number_with_delimiter(a.user.payment) %></td>
-          <td class="text-right"><%= number_with_delimiter(a.user.payment.to_i * working.to_i) %></td>
-          <% total_time = total_time.to_i + working.to_i %>
-          <% total_pay = total_pay.to_i + a.user.payment.to_i * working.to_i %>
-        </tr>
+  <div class="row">
+    <div class="col">
+      <h3 class="text-center">勤怠実績一覧</h3>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <%= button_to "前月", admin_attendance_managements_path(s_month: 'previous'), method: :get, class: "btn btn-outline-primary" %>
+        <%= button_to "翌月", admin_attendance_managements_path(s_month: 'next'), method: :get, class: "btn btn-outline-primary" %>
+      </div>
+      <div>
+        <%= form_with url: admin_attendance_managements_path, method: :get, local: true do |f| %>
+          <%= f.label :name, '氏名で検索する' %>
+          <%= f.text_field :name %>
+          <%= f.submit "検索", class: "btn btn-secondary" %>
         <% end %>
-        <tr>
-          <td class="text-center" colspan="6">労働時間合計 / 支給額合計(円)</td>
-          <td class="text-right"><%= total_time %></td>
-          <td colspan="2" class="text-right"><%= number_with_delimiter(total_pay) %></td>
-        </tr>
-      </tbody>
-    </table>
+      </div>
+      <div>
+        <table class="table table-bordered table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>休憩入</th><th>休憩戻</th><th>退勤時間</th><th>労働時間(時間)</th><th>時給(円)</th><th>支給額(円)</th>
+            </tr>
+          </thead>
+          <% total_time = 0 %>
+          <% total_pay = 0 %>
+          <tbody>
+            <% @attendance_managements.each do |a| %>
+            <tr>
+              <td><%= a.user.name %></td>
+              <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
+              <td><%= a.res_attendance.strftime('%H:%M') %></td>
+              <td><%= a.res_break_in.strftime('%H:%M') %></td>
+              <td><%= a.res_break_out.strftime('%H:%M') %></td>
+              <td><%= a.res_leaving.strftime('%H:%M') %></td>
+              <% working = (a.res_leaving - a.res_attendance - (a.res_break_out - a.res_break_in)) / 60 / 60 %>
+              <td class="text-right"><%= working %></td>
+              <td class="text-right"><%= number_with_delimiter(a.user.payment) %></td>
+              <td class="text-right"><%= number_with_delimiter(a.user.payment.to_i * working.to_i) %></td>
+              <% total_time = total_time.to_i + working.to_i %>
+              <% total_pay = total_pay.to_i + a.user.payment.to_i * working.to_i %>
+            </tr>
+            <% end %>
+            <tr>
+              <td class="text-center" colspan="6">労働時間合計 / 支給額合計(円)</td>
+              <td class="text-right"><%= total_time %></td>
+              <td colspan="2" class="text-right"><%= number_with_delimiter(total_pay) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>

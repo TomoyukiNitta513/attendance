@@ -1,33 +1,37 @@
 <div class="container mt-3">
-  <table class="table table-bordered">
-    <h3 class="text-center">シフト表</h3>
-    <h3><%= @date.strftime('%Y年%m月') %></h3>
-    <thead class="thead-light">
-      <tr>
-        <th>日</th>
-        <th>月</th>
-        <th>火</th>
-        <th>水</th>
-        <th>木</th>
-        <th>金</th>
-        <th>土</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% month = @date.strftime('%m') %>
-    <% d = @date.at_beginning_of_month.at_beginning_of_week(:sunday) %>
-    <% 1.upto(6).each do |i| %>
-      <tr>
-        <% (d..d.end_of_week(:sunday)).each do |c| %>
-          <td>
-            <%= link_to show_2_attendance_managements_path(shift_date: c) do %>
-              <%= c.strftime('%m') == month ? c.strftime('%d') : "" %>
+  <div class="row">
+    <div class="col">
+      <h3 class="text-center">シフト表</h3>
+      <h4><%= @date.strftime('%Y年%m月') %></h4>
+      <table class="table table-bordered text-center">
+        <thead class="thead-light">
+          <tr>
+            <th>日</th>
+            <th>月</th>
+            <th>火</th>
+            <th>水</th>
+            <th>木</th>
+            <th>金</th>
+            <th>土</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% month = @date.strftime('%m') %>
+        <% d = @date.at_beginning_of_month.at_beginning_of_week(:sunday) %>
+        <% 1.upto(6).each do |i| %>
+          <tr>
+            <% (d..d.end_of_week(:sunday)).each do |c| %>
+              <td>
+                <%= link_to show_2_attendance_managements_path(shift_date: c) do %>
+                  <%= c.strftime('%m') == month ? c.strftime('%d') : "" %>
+                <% end %>
+              </td>
             <% end %>
-          </td>
+          </tr>
+          <% d = d + 1.week %>
         <% end %>
-      </tr>
-      <% d = d + 1.week %>
-    <% end %>
-    </tbody>
-  </table>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
