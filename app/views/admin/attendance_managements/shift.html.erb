@@ -1,45 +1,47 @@
 <div class="container mt-3">
-  <h3>シフトの編集</h3>
-  <div>
-    <span>
-      <%= form_with url: shift_admin_attendance_managements_path, method: :get, local: true do |f| %>
-        <%= f.label :name, '氏名で検索する' %>
-        <%= f.text_field :name %>
-        <%= f.submit "検索", class: "btn btn-secondary" %>
-      <% end %>
-    </span>
-  </div>
-  <div class="input-form">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>退勤時間</th><th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @attendance_managements.each do |a| %>
-        <tr>
-          <td><%= a.user.name %></td>
-          <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
-          <td><%= a.sch_attendance.strftime('%H:%M') %></td>
-          <td><%= a.sch_leaving.strftime('%H:%M') %></td>
-            <% @a_flag = a.approval_flag %>
-            <% unless @a_flag == true %>
-              <td>
-                <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
-                <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
-              </td>
-            <% else %>
-              <td>&nbsp;</td>
-            <% end %>
-        </tr>
+  <div class="row">
+    <div class="col">
+      <h3>シフトの編集</h3>
+      <div>
+        <%= form_with url: shift_admin_attendance_managements_path, method: :get, local: true do |f| %>
+          <%= f.label :name, '氏名で検索する' %>
+          <%= f.text_field :name %>
+          <%= f.submit "検索", class: "btn btn-secondary" %>
         <% end %>
-      </tbody>
-    </table>
-    <div>
-      <% unless @a_flag == true %>
-        <%= button_to "シフトを確定する", approve_admin_attendance_managements_path(approval_flag_all: true), method: :post, class: "btn btn-primary" %>
-      <% end %>
+      </div>
+      <div class="input-form">
+      </div>
+      <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>氏名</th><th>出勤日</th><th>出勤時間</th><th>退勤時間</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @attendance_managements.each do |a| %>
+          <tr>
+            <td><%= a.user.name %></td>
+            <td><%= a.attendance_date.strftime("%Y年%m月%d日") %></td>
+            <td><%= a.sch_attendance.strftime('%H:%M') %></td>
+            <td><%= a.sch_leaving.strftime('%H:%M') %></td>
+              <% @a_flag = a.approval_flag %>
+              <% unless @a_flag == true %>
+                <td>
+                  <%= link_to "編集", edit_attendance_management_path(a.id), :remote => true %> |
+                  <%= link_to "削除", attendance_management_path(a.id), method: :delete, data: { confirm: '削除しますか?' } %>
+                </td>
+              <% else %>
+                <td>&nbsp;</td>
+              <% end %>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div>
+        <% unless @a_flag == true %>
+          <%= button_to "シフトを確定する", approve_admin_attendance_managements_path(approval_flag_all: true), method: :post, class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

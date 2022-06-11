@@ -81,8 +81,15 @@ class AttendanceManagementsController < ApplicationController
       redirect_to attendance_managements_path
     else
       flash.now[:danger] = "情報の更新が出来ませんでした。"
-      redirect_to attendance_managements_path
+      # redirect_to attendance_managements_path
+      render :edit
     end
+  end
+
+  def destroy
+    AttendanceManagement.find(params[:id]).destroy
+    flash[:info] = "削除しました。"
+    redirect_to attendance_managements_path(current_user.id)
   end
 
   private

@@ -6,11 +6,13 @@
           <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
           <hr class="my-4">
           <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+          <div class="text-center">
           <% unless logged_in? %>
             <%= link_to "ログイン", login_path, class: "btn btn-primary btn-lg mt-3 mb-3", roll: 'button' %>
           <% else %>
             <%= link_to "ログアウト", logout_path, class: "btn btn-secondary btn-lg mt-3 mb-3", roll: 'button', method: :delete %>
           <% end %>
+          </div>
         </div>
       </div>
     </div>
